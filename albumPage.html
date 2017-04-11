@@ -1,0 +1,52 @@
+<div class="container-fluid" id="body2">
+	<div class="row" id="yo">
+		<div class="col-md-9" id="box2">
+			<div class="row" id="header2">
+				<ng-include src="'partials/header.html'"></ng-include>
+			</div>
+			<div class="row" id="padding">
+				<div class="col-md-12">
+					<h2 id="yo"><img ng-src="{{albumImg}}" id="searchArtistImage"/>		{{albumName}}</h2>
+				</div>	
+			</div>
+			<div class="row" id="padding2">
+				<div class="col-md-8">
+					TITLE
+				</div>
+				<div class="col-md-2">
+					LENGTH
+				</div>
+				<div class="col-md-1">
+					QUEUE
+				</div>
+				<div class="col-md-1">
+					FAVORITE
+				</div>
+				<hr></hr>
+			</div>
+			<div class="row" id="padding2">
+				<ol id="list">
+					<div class="row" ng-repeat="track in albumTracks">
+						<div class="col-md-8"><li id="space">{{track.name}}</div>
+						<div class="col-md-2">{{getTrackTime(track.duration_ms)}}</div></li>
+						<div class="col-md-1" ng-controller="searchCtrl">
+							<a id="sortLink" href="" ng-click="queueSong(track)"><span ng-class="{'glyphicon glyphicon-plus': !queued, 'glyphicon glyphicon-minus': queued}" ng-click="queued=!queued; queued=queued"></span></a>
+						</div>
+						<div class="col-md-1" ng-controller="RegController">
+							<a id="sortLink" href="" ng-click="favoriteSong(track)">
+								<span ng-class="{'glyphicon glyphicon-star-empty': !clicked, 'glyphicon glyphicon-star': clicked}" ng-click="clicked=!clicked; clicked=clicked"></span>
+							</a>
+						</div>
+					</div>
+				</ol>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<ng-include src="'partials/queueList.html'"></ng-include>
+		</div>
+
+	</div>
+
+	
+</div>
