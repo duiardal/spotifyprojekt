@@ -1,65 +1,25 @@
-<!--Search-->
 <div class="container-fluid" id="body2" ng-controller="searchCtrl">
 	<div class="row">
+		<!--SearchPart-->
 		<div class="col-md-9" id="box2">
-			<div class="row" id="header2">
-				<div class="col-md-4" id="searchBar2">
-					{{changeBOl()}}
-					<div class="col-md-12">
-						<form ng-submit="searchArtist(input);searchTracks(input);searchAlbums(input);searchUser(input)">
-							<div class="input-group input-group-md">
-								<span class="input-group-addon"><a href=""><span class="glyphicon glyphicon-search" ng-click="searchArtist(input);searchTracks(input);searchAlbums(input);searchUser(input)" id="formIcon"></span></a></span>
-								<input ng-model="input" id="search" placeholder="Search" style="width: 20em;"/>
-							</div>
-						</form>
-					</div>
-				</div>
-
-				<div class="col-md-4" id="searchTitle">
-					<h2>Queue</h2>
-				</div>
-				
-				<div class="col-md-4" id="searchBar">
-					<div ng-controller="RegController">
-						<div class="col-md-10">
-							<h4><span id="userIcon" class="glyphicon glyphicon-user"></span> Logged in as: <a id="sortLink" ng-href="#!/profilsida">{{ currentUser.username }}</a></h4>
-						</div>
-						<div class="col-md-2">
-							<a href="" ng-click="logout()"><h4 id="userIcon" class="glyphicon glyphicon-log-out"></h4></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br></br>
-
-
+			{{searchPageLoad()}}
+			<ng-include src="'partials/header.html'"></ng-include>
 			<!--SearchResults-->
 			<div class="row">
+				{{changeToResults()}}
+				<!--Visable when loading the page for the first time-->
 				<div class="col-md-12" id="box" ng-if="searchInput == false">
 					<div class="row">
 						<h1>Search for <span class="glyphicon glyphicon-music"></span> or <span class="glyphicon glyphicon-user"></span></h1>
 					</div>
 				</div>
-
-				<!--<div class="col-md-12" ng-controller="RegController" id="box" ng-show="searchedUser" ng-hide="searchInput == true">
-					<div class="row" id="searchResult">
-						<div class="col-md-12">
-							<div class="row" id="artistResult">
-								<div class="col-md-12">
-									<a id="sortLink" href=""><h3>{{searchedUser.username}}</h3></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>-->
-
-
-				<div class="col-md-12" id="box" ng-if="searchInput == true" >
-
+				<!--All the results are viable when searced-->
+				<div class="col-md-12" id="box" ng-if="searchInput == true">
 					<div class="row">
 						<h1>Showing results for: {{searchWord()}}</h1>
 					</div>
 					<div class="row" id="artistResult">
+						<!--ArtistResults-->
 						<div class="col-md-5">
 							<div class="row">
 								<h1>Artists</h1>
@@ -67,12 +27,13 @@
 							<div class="row">
 								<div class="col-md-4" ng-repeat="artist in artistResults()" id="artistBlock">
 									<div class="row">
-										<a ng-href='#!/artistPage/{{artist.id}}' ng-click="getAlbum(artist.id)"><img alt="No image" id="searchArtistImage" ng-src="{{artist.images[0].url}}"/></a>
+										<a ng-href='#!/artistPage/{{artist.id}}' ng-click="getAlbum(artist.id)"><img id="searchArtistImage" ng-src="{{artist.images[0].url}}"/></a>
 										<p>{{artist.name}}</p>
 									</div>
 								</div>
 							</div>
 						</div>
+						<!--AlbumResults-->
 						<div class="col-md-5">
 							<div class="row">
 								<h1>Albums</h1>
@@ -86,6 +47,7 @@
 								</div>
 							</div>
 						</div>
+						<!--UsersResults-->
 						<div class="col-md-2">
 							<div class="row">
 								<h1>Users</h1>
@@ -98,13 +60,14 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<h1>Tracks</h1>
-							</div>
+					</div>
+					<!--All TrackResults-->
+					<div class="row">
+						<div class="col-md-12">
+							<h1>Tracks</h1>
 						</div>
 					</div>
-
+					<!--TrackLabels-->
 					<div class="row" id="searchResult">
 						<a href="" id="sortLink" ng-click="sortTracks()">
 							<div class="col-md-4">
@@ -135,7 +98,7 @@
 
 						<hr></hr>
 					</div>
-
+					<!--ALl trackData-->
 					<div class="row" id="searchResult" ng-repeat="track in trackSearch() track by $index">
 						<div class="col-md-4">
 							{{track.name}} <a href="" style="color:white" ng-click="player(track.preview_url)"><span class="glyphicon glyphicon-volume-up"></span></a> 
@@ -155,10 +118,9 @@
 							<a id="qKnapp" href="" ng-click="queueSong(track)">
 								<span class="{{queueSongs(track.id)}}" id="queque{{track.id}}"></span>
 							</a>
-
 						</div>
 						<div class="col-md-1">
-							<a id="sortLink">
+							<a href="" id="sortLink">
 								<span ng-controller="searchCtrl" ng-click="favoriteSong(track)" id="{{track.id}}" class="{{favoriteSongs(track.id)}}"></span>
 							</a>
 						</div>
@@ -174,8 +136,4 @@
 			</div>
 		</div>
 	</div>
-
-
 </div>
-
-

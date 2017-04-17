@@ -10,18 +10,53 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 		$scope.searchInput = true;
 
 	}
+	//Checks the search page for header
+	$scope.searchPageLoad = function() {
+		$scope.searchPage = true;
+	}
+	//Checks the profile page for header
+	$scope.profilePageLoad = function() {
+		$scope.searchPage = false;
+	}
+	//Checks the profilePlaylists page for header
+	$scope.userPlaylistPageLoad = function() {
+		$scope.searchPage = false;
+		$scope.currentProfilePlaylist=true;
+	}
+	//Checks the album page for header
+	$scope.albumPageLoad = function() {
+		$scope.albumToArtist =true;
+		$scope.searchPage = false;
+	}
+	//Checks the artist page for header
+	$scope.artistPageLoad = function() {
+		$scope.searchPage = false;
+	}
+	//Checks the user page for header
+	$scope.friendPageLoad = function() {
+		$scope.searchPage = false;
+	}
+	//Checks the user page for header
+	$scope.friendPlaylistLoad = function() {
+		$scope.searchPage = false;
+		$scope.friendPlaylistPage=true;
+	}
 	//returns the searchword
 	$scope.searchWord = function() {
 		var test = Spotify.searchWord;
 		return test;
 	}
 	//Checks if page has ever been loaded
-	$scope.changeBOl = function() {
+	$scope.changeToResults = function() {
 		if (Spotify.back) {
 			$scope.searchInput = true;
-			
 		}
 	}
+
+	$scope.searchUser = function(user) {
+		$scope.userInput = true;
+		Authentication.searchUser(user);
+	};
 
 	$scope.artistResults = function() {
 		return Spotify.artistSearch;
@@ -37,7 +72,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 
 	//Gets the artists in search
 	$scope.searchArtist = function(input) {
-		$scope.searchInput = true;
 		Spotify.searchWord = input;
 		Spotify.Artist.get({name:input}, function(output) {
 			$scope.artistResult = output.artists.items;
@@ -46,10 +80,15 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	}
 	//Gets the tracks in search
 	$scope.searchTracks = function(input) {
-		//$scope.resetSortSymbols();
 		Spotify.track.get({track:input}, function(output){
 			$scope.trackResult = output.tracks.items;
 			Spotify.trackSearch = output.tracks.items;
+			Spotify.back = true;
+			if ($scope.searchInput) { 
+				$scope.resetSortSymbols();
+			}
+			$scope.searchInput = true;
+
 		});
 	}
 	//Gets the albums in search
@@ -289,7 +328,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	//Queue Songs
 	$scope.queueSong = function(song) {
 		var symbol = document.getElementById("queque" + song.id);
-
 		if (symbol.className == "glyphicon glyphicon-minus") {
 			$scope.removeSong(song.id);
 		}
@@ -375,17 +413,17 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
     		if (list.length==2) {
     			if (list[0] > list[1]) {
     				var symbol = document.getElementById("direction"+list[1]);
-    				symbol.className = "glyphicon glyphicon-arrow-up";
+    				symbol.className = "glyphicon glyphicon-arrow-down";
     				var symbolTwo = document.getElementById("direction"+list[0]);
-    				symbolTwo.className = "glyphicon glyphicon-arrow-down";
+    				symbolTwo.className = "glyphicon glyphicon-arrow-up";
 
     			}
 
     			else if (list[1] > list[0]) {
     				var symbol = document.getElementById("direction"+list[0]);
-    				symbol.className = "glyphicon glyphicon-arrow-up";
+    				symbol.className = "glyphicon glyphicon-arrow-down";
     				var symbolTwo = document.getElementById("direction"+list[1]);
-    				symbolTwo.className = "glyphicon glyphicon-arrow-down";
+    				symbolTwo.className = "glyphicon glyphicon-arrow-up";
 
     			}
     		}
@@ -407,10 +445,20 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
     	var playern = $window.open(url,"","width=350,height=10");
     }
 
-    $scope.searchUser = function(user) {
-		$scope.userInput = true;
-		Authentication.searchUser(user);
-	};
+    //Retrives user Playlist
+    $scope.getPlaylist = function(playlist, title) {
+    	Spotify.userPlaylist = playlist;
+    	Spotify.userPlaylistTitle = title;
+    	
+    }
 
-    
+    //Retrives the title of the playlist
+    $scope.getUserPlaylistTitle = function() {
+    	return Spotify.userPlaylistTitle;
+    }
+
+    //Retrives the userPlaylist from the model
+    $scope.getUserPlaylist = function() {
+    	return Spotify.userPlaylist;
+    } 
 });

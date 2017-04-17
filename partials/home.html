@@ -4,7 +4,7 @@
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4" id="header-title">
-			<h1>Queue</h1>
+			<h1>KléQueue</h1>
 		</div>
 		<div class="col-md-4">
 		</div>
@@ -18,27 +18,25 @@
 			</br>
 			<form>
 				<div class="input-group input-group-md"> 
-					<span class="input-group-addon"><i id="formIcon" class="glyphicon glyphicon-envelope"></i></span>
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 					<input id="email" type="email" class="form-control" name="email" placeholder="Email" ng-model="user.email" ng-required="true">
 				</div>
 				</br>
 				</br>
 				<div class="input-group input-group-md">
-					<span class="input-group-addon"><i id="formIcon" class="glyphicon glyphicon-lock"></i></span>
+					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 					<input id="password" type="password" class="form-control" name="password" placeholder="Password" ng-model="user.password" ng-required="true">
 				</div>
 			</form>
 			</br>
-			<div class="col-md-2">
+			<div class="col-md-6" id="signInButton">
+				<a href="" ng-click="login(user)" id="button"><div id="buttonDiv"><h4>Sign-in User</h4></div></a>
 			</div>
-			<div class="col-md-4" id="signInButton">
-				<a href="" ng-click="login(user)" id="button"><button id="transparentButton" class="btn btn-md" style="width: 10em;"><h5>Sign-in User</h5></button></a>
-			</div>
-			<div class="col-md-4" id="createNewUserButton">
-				<a id="button" ng-href="#!/registerPage"><button id="transparentButton" class="btn btn-md" style="width: 10em;"><h5>Create New User</h5></button></a>
+			<div class="col-md-6" id="createNewUserButton">
+				<a id="button" ng-href="#!/registerPage"><div id="buttonDiv"><h4>Create New User</h4></div></a>
 				<!--<a ng-href=""><button class="btn" ng-click="register(user)"><h5>Create New User</h5></button></a>-->
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-4">
 			</div>
 		</div>
 		
@@ -48,8 +46,8 @@
 		</div>
 	</div>
 	<div class="row" id="footer">
-		<!--<div class="col-md-4"><a id="yo"><h4>About us</h4></a></div>
+		<div class="col-md-4"><a id="yo"><h4>About us</h4></a></div>
 		<div class="col-md-4"><a id="yo"><h4>Licens</h4></a></div>
-		<div class="col-md-4"><a id="yo"><h4>Copyright</h4></a></div>-->
+		<div class="col-md-4"><a id="yo"><h4>Copyright</h4></a></div>
 	</div>
 </div>

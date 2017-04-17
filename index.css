@@ -95,6 +95,7 @@ height: 100%;
 
 #transparentButton {
 	background: rgba(255, 255, 255, 0.3);
+	color:white;
 }
 
 #padding {
@@ -149,6 +150,11 @@ height: 100%;
 
 #margin {
 	margin-bottom: 10px;
+}
+
+#margin2 {
+	margin-bottom: 10px;
+	padding-left: 10em;
 }
 
 #loginBox {
@@ -267,7 +273,6 @@ height: 100%;
 }
 #searchArtistImage {
 	height:6em;
-	width: 6em;
 	/*border-radius: 80%;*/
 	/*padding-left: 1em;*/
 	/*margin-top: 2em;*/
@@ -298,5 +303,3 @@ height: 100%;
   height: 3px;
   background-color: #4CAF50;
 }
-
-
