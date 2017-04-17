@@ -1,0 +1,28 @@
+<div class="container-fluid" id="body2" ng-controller="searchCtrl">
+	<div class="row">
+		<div class="col-md-9" id="box2">
+			{{artistPageLoad()}}
+			<ng-include src="'partials/header.html'"></ng-include>
+			<!--Artist info-->
+			<div class="row" id="header2" ng-controller="searchCtrl">
+				<div class="col-md-12" id="margin">
+					<h1 id="yo"><img ng-src="{{artistImg}}" id="searchArtistImage"/>{{artist}}</h1>
+				</div>
+			</div>
+			<div class="row" id="padding">
+				<div class="col-md-12"><h1 id="yo">Albums</h1></div>
+			</div>
+			<!--All Artist Albums-->
+			<div class="row" id="padding">
+				<div class="col-md-3" ng-repeat="album in albumResult">
+					<a ng-href='#!/albumPage/{{album.id}}'><img ng-src="{{album.images[0].url}}" id="searchArtistImage"/></a>
+					<p>{{album.name}}</p>
+				</div>
+			</div>
+		</div>
+		<!--Queue-->
+		<div class="col-md-3">
+			<ng-include src="'partials/queueList.html'"></ng-include>
+		</div>
+	</div>
+</div>

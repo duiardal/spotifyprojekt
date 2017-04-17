@@ -1,0 +1,124 @@
+<div class="container-fluid" id="body2" style="padding-bottom: 10em;">
+	<div class="row" ng-controller="RegController">
+		<!--All profile info i shown here-->
+		<div class="col-md-9" id="box2" ng-controller="searchCtrl">
+			{{friendPageLoad()}}
+			<ng-include src="'partials/header.html'"></ng-include>
+			<!--User Favorites, Playlists, Details-->
+			<div class="row" ng-controller="RegController">
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-10" id="playlistname">
+					<h2>{{selUser.username}}</h2>
+				</div>
+				<!--Add User as friend-->
+				<div class="col-md-1" id="playlistname2" ng-controller="searchCtrl">
+					<a href="" id="sortLink" ng-click="addFriend(selUser)">
+						<div class="col-md-1" style="padding-right: 0;">
+						<h4>
+							<span class="glyphicon glyphicon-user"></span>
+						</h4>
+						</div>
+						<div class="col-md-1">
+							<p style="padding-top: 1em; padding-left: 0;">
+								<span id="{{selUser.id}}" class="{{friendStatus(selUser.id)}}"></span>
+							</p>
+						</div>
+					</a>
+				</div>
+			</div>
+			<!--Information-->
+			<div class="row" ng-controller="RegController">
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-10">
+					<!--Favorites-->
+					<div class="row" ng-controller="searchCtrl">
+						<div class="col-md-12">	
+							<h3>Favorite Tracks:</h3>
+							<div class="row" id="searchResult" ng-repeat="(keyVal, favSong) in selUser.favorite_songs" ng-controller="RegController">
+								<div class="col-md-4">
+									<h5>{{favSong.favorites.name}}
+									<a style="color:white" ng-click="player(favSong.favorites.preview_url)">
+										<span class="glyphicon glyphicon-volume-up">
+										</span>
+									</a></h5>	
+								</div>
+								<div class="col-md-3">
+									<h5>{{favSong.favorites.artists[0].name}}</h5>
+								</div>
+								<div class="col-md-3">
+									<h5>{{favSong.favorites.album.name}}</h5>
+								</div>
+								<div class="col-md-1" ng-controller="searchCtrl">
+									<a id="qKnapp" ng-click="queueSong(favSong.favorites)">
+										<span class="{{queueSongs(favSong.favorites.id)}}" id="queque{{favSong.favorites.id}}">
+										</span>
+									</a>
+								</div>
+								<div class="col-md-1">
+									<a id="sortLink">
+										<span ng-controller="searchCtrl" ng-click="favoriteSong(favSong.favorites)" id="{{favSong.favorites.id}}" class="{{favoriteSongs(favSong.favorites.id)}}">
+										</span>
+									</a>
+								</div>
+							</div>
+							<hr>
+						</div>
+					</div>
+					<!--Playlists-->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<h3 style="padding-left: 0.6em;">Playlists:</h3>
+							</div>
+							<div class="row" style="display: inline-block; margin:0em; padding:0em;">
+								<div ng-repeat="(key, playlist) in selUser.playlists" style=" height: 12em; width: 10em; float:left; margin: 1em;">
+									<div>	
+										<a ng-controller="RegController" ng-href="#!/playlistPage/{{selUser.id}}" ng-click="getUsersPlaylist(key, selUser, playlist.PlaylistName)">
+											<div class="row" style="padding-left: 2em; margin: 0em; font-size: 1em;">
+												<div ng-repeat="song in playlist.playlists.slice(0,4)" style="float:left;">
+													<img style="height:3em; width:3em;" ng-src="{{song.album.images[0].url}}"></img>
+												</div>
+											</div>
+											<div class="row" style="margin: 0em;">
+												<div class="col-md-9" style="padding:0em; padding-left:2em;text-align: left;">
+													{{playlist.PlaylistName}}
+												</div>
+											</div>
+										</a>
+									</div>
+								</div>
+								<hr>
+							</div>
+						</div>
+					</div>
+
+					<!--Friends-->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<h3 style="padding-left: 0.6em;">Friends:</h3>
+							</div>
+							<div class="row" ng-repeat="(key, user) in selUser.friends">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-11" id="playlistname">
+											<a id="sortLink" ng-click="userSearch(user.friend.id)" ng-href="#!/friends/{{user.friend.id}}"><h3>{{ user.friend.username }}</h3></a>
+										</div>
+									</div>
+									<hr>
+								</div>
+							</div>
+							<hr>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Queuen-->
+		<div class="col-md-3">
+			<ng-include src="'partials/queueList.html'"></ng-include>
+		</div>
+	</div>
+</div>

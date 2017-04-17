@@ -1,38 +1,53 @@
-<!-- We include the sidebar as it is shared across two screens. -->
-<div class="container-fluid">
+
+<div class="row" id="body">
+	<div class="row" id="header">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4" id="header-title">
+			<h1>KléQueue</h1>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
 	<div class="row">
-
-		<div class="col-md-12" id="dishDetailView">
-			<div class="row">
-				<div class='col-md-6'>
-					<div class="col-md-6">
-						<div class="row">
-							<input type="text" ng-model="id" ng-keyup="$event.keyCode == 13 && artistSearch(id)"/>
-							<button ng-click="artistSearch(id)" style="border: none;"><span class="glyphicon glyphicon-search"></span></button>
-						</div>
-						<div class="row">
-							<h1 id="artistName">{{artist.artists.items[0].name}}</h1>
-							<img style='height: 300px;' ng-src="{{artist.artists.items[0].images[0].url}}"/>
-						</div>
-
-					</div>
-					<div class="col-md-6" ng-repeat="i in artist.artists.items[0].genres">
-						<div class="row">
-							<h5>{{i}}</h5>
-						</div>
-					</div>
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4" id="loginBox">
+			</br>
+			<h4>Welcome, log in</h4>
+			</br>
+			<form>
+				<div class="input-group input-group-md"> 
+					<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<input id="email" type="email" class="form-control" name="email" placeholder="Email" ng-model="user.email" ng-required="true">
 				</div>
-				<div class="col-md-6">
-					<div class="row" ng-repeat="i in album.items">
-						<div class="col-md-6">
-							<h4 style="text-decoration: underline;">{{i.name}}</h4>
-						</div>
-						<div class="col-md-6">
-							<img style='height: 70px; float: right;' ng-src="{{i.images[0].url}}"/>
-						</div>
-					</div>
+				</br>
+				</br>
+				<div class="input-group input-group-md">
+					<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+					<input id="password" type="password" class="form-control" name="password" placeholder="Password" ng-model="user.password" ng-required="true">
 				</div>
+			</form>
+			</br>
+			<div class="col-md-6" id="signInButton">
+				<a href="" ng-click="login(user)" id="button"><div id="buttonDiv"><h4>Sign-in User</h4></div></a>
+			</div>
+			<div class="col-md-6" id="createNewUserButton">
+				<a id="button" ng-href="#!/registerPage"><div id="buttonDiv"><h4>Create New User</h4></div></a>
+				<!--<a ng-href=""><button class="btn" ng-click="register(user)"><h5>Create New User</h5></button></a>-->
+			</div>
+			<div class="col-md-4">
 			</div>
 		</div>
+		
+
+		<div class="col-md-12" ng-if="error">
+			<h4>Error: <strong>{{ message }}</strong></h4>
+		</div>
+	</div>
+	<div class="row" id="footer">
+		<div class="col-md-4"><a id="yo"><h4>About us</h4></a></div>
+		<div class="col-md-4"><a id="yo"><h4>Licens</h4></a></div>
+		<div class="col-md-4"><a id="yo"><h4>Copyright</h4></a></div>
 	</div>
 </div>

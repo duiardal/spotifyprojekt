@@ -1,5 +1,6 @@
 queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
-	if (Spotify.albumCtrl === false) {
+	//if-statement checks whether the page has been loaded or not.
+	if (Spotify.albumCtrl == false) {
 		var name = $routeParams;
 		Spotify.getAlbum.get({
 			id:name.id}, function(output) {
@@ -9,11 +10,10 @@ queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
 				$scope.albumName = output.name;
 				$scope.albumImg = output.images[1].url;
 				$scope.albumTracks = output.tracks.items;
-				console.log($scope.albumTracks);
 			}
 		);
 	}
-
+	//Calculates the runtime of a song
 	$scope.getTrackTime = function(duration) {
 		var min = 0;
 		var test = duration*0.001;
@@ -23,12 +23,10 @@ queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
 				test = test-60;
 				min +=1;
 			} 
-
 			else {
 				test = Math.round(test)
 				rest=false;
 			}
-
 		}
 
 		if (test<10) {

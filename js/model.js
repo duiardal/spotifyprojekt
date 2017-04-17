@@ -1,11 +1,22 @@
 queueKle.factory('Spotify',function ($resource) {
 
+	//search variables
+	this.searchBack = false;
+	this.artistSearch = [];
+	this.albumSearch = [];
+	this.trackSearch = [];
+	this.artistAlbums = [];
+	this.artistName = [];
+	this.searched = null;
+	this.back = false;
+	this.searchWord = [];
+
 	//global variabels
 	this.queue = [];
 	this.artistCtrl = false;
 	this.albumCtrl = false;
-	this.albumIDList = [];
-
+	this.userPlaylist = [];
+	this.userPlaylistTitle = [];
 
 
 	//sort variables
@@ -14,40 +25,62 @@ queueKle.factory('Spotify',function ($resource) {
 	this.albumSort = true;
 	this.popSort = true;
 
+	/*	
+	var _this = this;
+	var getCookieQueue = function(){
+		var tempQueue = $cookieStore.get("queue");
+		for(song in tempQueue) { 
+			_this.track.get({id:tempQueue[song]}, function(data) {
+				console.log(data), 
+				_this.queue.push(data);
+			 });
+		}
+	}
+	*/
+
 	//calculates totalplaytime in playlist
 	this.getPlaylistTime = function(playlist) {
 		var runtime = 0;
 		for (song in playlist) {
 			runtime += playlist[song].duration_ms * 0.001;
 		}
-
 		var min = 0;
-		var test = runtime;
+		var sec = runtime;
 		var rest=true;
 		while (rest==true) {
-			
-			if (test-60 > 0) {
-				test = test-60;
+			if (sec-60 > 0) {
+				sec = sec-60;
 				min +=1;
 			} 
-
 			else {
-				test = Math.round(test)
+				sec = Math.round(sec)
 				rest=false;
 			}
-
 		}
-		return [min, test];
+		if (sec < 10) {
+			var seconds = "0"+sec
+		} 
+		return [min, seconds];
 	}
+	//updates the cookies
+	this.updateCookieQueue = function() {
+		var cookieQueue = [];
+		for (song in this.queue) {
+			cookieQueue.push(this.queue[song].id);
+		}
 
+		$cookieStore.put("queue", cookieQueue);
+	}
+	//adds song to queue
 	this.addToPlaylist = function(song) {
 		this.queue.push(song);
+		//this.updateCookieQueue();
 	}
-
+	//resets the playlist when playlist is saved
 	this.resetPlaylist = function() {
 		this.queue = [];
 	}
-
+	//Deletes song from queue
 	this.removeSong = function(id) {
 		for (song in this.queue) {
 			if (id == this.queue[song].id) {
@@ -55,7 +88,12 @@ queueKle.factory('Spotify',function ($resource) {
 			}
 		}
 	}
+	//returns the queue
+	this.getQueue = function() {
+		return this.queue;
+	}
 
+	//Spotify Api-requests
 	this.Artist = $resource('https://api.spotify.com/v1/search?q=:name&type=artist&limit=5',{},{
     get: {
 		}
@@ -73,10 +111,6 @@ queueKle.factory('Spotify',function ($resource) {
 	this.album = $resource('https://api.spotify.com/v1/search?q=:name&type=album&limit=5',{},{
 		get: {}
 	});
-
-	this.getQueue = function() {
-		return this.queue;
-	}
 
 	this.artistAlbum = $resource('https://api.spotify.com/v1/artists/:id/albums',{},{
     get: {
@@ -100,4 +134,6 @@ queueKle.factory('Spotify',function ($resource) {
 
 	return this;
 
-})
+	getCookieQueue();
+
+});

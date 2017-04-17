@@ -13,7 +13,6 @@ queueKle.factory('Authentication',
       var userRef = ref.child(authUser.uid);
       var userObj = $firebaseObject(userRef);
       $rootScope.currentUser = userObj;
-      console.log($rootScope.currentUser);
     } else {
       $rootScope.currentUser = '';
     }
@@ -115,7 +114,6 @@ queueKle.factory('Authentication',
     deletePlaylist: function(playlistId) {
       var list = $firebaseArray(ref.child($rootScope.currentUser.id).child("playlists"));
       list.$loaded().then(function(list){
-        console.log(list.$getRecord(playlistId));
         var item = list.$getRecord(playlistId);
         list.$remove(item).then(function(ref) {
           ref.key === item.$id; // true
@@ -168,11 +166,14 @@ queueKle.factory('Authentication',
       })
     },
 
-    userSearch: function(username) {
-      var reference = $firebaseObject(ref);
+    userSearch: function(id) {
+      var reference = $firebaseArray(ref);
       reference.$loaded().then(function(reference){
-        $rootScope.allUsers = reference;
-        console.log($rootScope.allUsers);
+        for (obj in reference) {
+          if (reference[obj].id == id) {
+            $rootScope.selUser = reference[obj];
+          }
+        }
       })
     },
 
@@ -195,7 +196,6 @@ queueKle.factory('Authentication',
           ref.key === item.$id; // true
         })
       });
-      //list.$remove(list.$getRecord(playlistId));
     },
 
     favoriteSong: function(track) {
@@ -206,27 +206,56 @@ queueKle.factory('Authentication',
           console.log("Song added to favorites");
         })
       });
-      //list.$remove(list.$getRecord(playlistId));
     },
 
     deleteFavorite: function(track) {
-      console.log("hej");
       var list = $firebaseArray(ref.child($rootScope.currentUser.id).child("favorite_songs"));
       list.$loaded().then(function(list){
         var item = list.$getRecord(track);
         list.$remove(item).then(function(ref) {
-          console.log("yo");
-          //ref.key === item.$id; // true
+          ref.key === item.$id; // true
         })
       });
-      //list.$remove(list.$getRecord(playlistId));
     },
-
-
-
-  }; //return
-
+    searchUser: function(substring){
+      var reference = $firebaseArray(ref);
+      reference.$loaded()
+      .then(function(reference) {
+        for (i in reference) {
+          var string = reference[i].username;
+          if (string.indexOf(substring) !== -1) {
+            $rootScope.searchedUser = reference[i];
+            return
+          }
+        }
+      })
+      .catch(function(error) {
+        $rootScope.error = error;
+        $rootScope.message = "User not found!";
+      })
+    },
+    usersPlaylist : function(key, object, playName) {
+      var reference = $firebaseArray(ref);
+      var thisUser;
+      reference.$loaded().then(function(reference) {
+        for (obj in reference) {
+          if (reference[obj].id == object.id) {
+            thisUser = reference[obj];
+            for (playList in thisUser.playlists) {
+              if (thisUser.playlists[playList].PlaylistName == playName) {
+                $rootScope.selectedUserID = thisUser.id;
+                $rootScope.selectedUser = thisUser.playlists[playList];
+                $rootScope.currentRating = thisUser.playlists[playList].Ranking;
+                $rootScope.playlistKey = key;
+                
+              }
+            }
+          }
+        }
+      })
+    }
+  }; 
 
   return myObject;
 
-}]); //factory
+}]); 

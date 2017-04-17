@@ -1,0 +1,78 @@
+<div class="row" ng-controller="searchCtrl" style="padding: 0em; margin:0em;">
+	<div class="col-md-12">
+		<h1 id="yo">Queue list</h1>
+		<!--Displays The Queue-->
+		<ol id="queueList">
+			<div class="row" ng-repeat="song in getList() track by $index">
+				<div class="col-md-1" ng-show="change">
+		    		<input id="test{{$index}}" type="checkbox" value="{{$index}}" ng-model="hej" ng-click="checkCheckboxes()" ng-change="changeDirection($index)">
+		    		<span class="hej" id="direction{{$index}}"></span>
+		    	</div>
+				<div class="col-md-5">
+					<li>
+						{{song.name}}
+						<a style="color:white" ng-click="player(song.preview_url)"><span class="glyphicon glyphicon-volume-up"></span></a>
+					</li> 
+				</div>
+				<div class="col-md-5">
+					{{song.artists[0].name}}
+				</div>
+				<div class="col-md-1" ng-show="change">
+					<a id="sortLink" href="" ng-click="removeSong(song.id)">
+						<span class="glyphicon glyphicon-remove"></span>
+					</a>
+				</div>
+			</div>
+		</ol>
+		</br>
+		<!--Edit Order button-->
+		<div class="row">
+			<div class="col-md-12">
+				<button id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="change =! change" style="color:white;">Edit Order</button>
+			</div>
+		</div>
+		<!--Comfirm the Change of order in Queue, Only visable while edit order is clicked-->
+		<div class="row">
+			<div class="col-md-12">
+				<button ng-show="change" id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="changeOrder();resetCheckboxes(); change =! change" style="color:white;">Change Order</button>
+			</div>
+		</div>
+		</br>
+		<!--Displays totalplay time-->
+		<div class="row">
+			<div class="col-md-5">
+				Total RunTime:
+			</div>
+			<div class="col-md-4" >
+				{{totalRuntime()[0]}}:{{totalRuntime()[1]}}
+			</div>
+		</div>
+		</br>
+		<!--Save Queue as Playlist-->
+		<div class="row">
+			<div class="col-md-6">
+				<button type="button" id="transparentButton" class="btn btn-default btn-xs" ng-click="save =! save">Save Queue as Playlist </button>
+			</div>
+		</div>
+		<!--Saving Field only visable when Save Queue.. is clicked-->
+		<div class="row" ng-show="save" ng-controller="RegController">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-6">
+						<h5>Name your playlist</h5>
+					</div>
+				</div>
+				<div class="row">
+					<form ng-submit="savePlaylist(playlistName); resetQueue(); save =! save">
+					<div class="col-md-5">
+						<input style="color:black;" name="playlistName" placeholder="Playlist name" ng-model="playlistName" ng-required="true">
+					</div>
+					<div class="col-md-3">
+						<button  class="btn btn-default btn" ng-model="playlist"><h5>Save</h5></button>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
