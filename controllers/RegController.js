@@ -65,14 +65,6 @@ queueKle.controller('RegController', ['$scope', 'Authentication', 'Spotify', '$r
 		Authentication.downvotePlaylist(key, nyckel);
 	};
 
-	$scope.upvotePlaylist2 = function(key, nyckel) {
-		Authentication.upvotePlaylist2(key, nyckel);
-	};
-
-	$scope.downvotePlaylist2 = function(key, nyckel) {
-		Authentication.downvotePlaylist2(key, nyckel);
-	};
-
 	$scope.favoriteSong = function(track) {
 		Authentication.favoriteSong(track);
 	};

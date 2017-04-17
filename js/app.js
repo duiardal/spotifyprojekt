@@ -1,4 +1,4 @@
-var queueKle = angular.module('queueKle', ['firebase', 'ngRoute','ngResource']);
+var queueKle = angular.module('queueKle', ['firebase', 'ngRoute','ngResource', 'ngCookies']);
 
 queueKle.run(["$rootScope", "$location", function($rootScope, $location) {
   $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
