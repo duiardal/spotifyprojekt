@@ -1,19 +1,31 @@
 queueKle.controller('artistCtrl', function($scope, Spotify, $routeParams) {
-	//Checks that the page is loaded once
-	if (Spotify.artistCtrl == false) {
+
+	var albumIDList = [];
+
+	if (Spotify.artistCtrl === false) {
 		var name = $routeParams
-		//retrives the artist albums
 		Spotify.artistAlbum.get({
 			id:name.id}, function(output) {
 				$scope.albumResult = output.items;
 				$scope.artist = output.items[0].artists[0].name;
+				for (albumID in $scope.albumResult) {
+					albumIDList.push($scope.albumResult[albumID].id);
+				};
+
 		});
-		//retrives artist
 		Spotify.getArtist.get({
 			id:name.id}, function(output) {
 				$scope.artistImg = output.images[0].url;
 			}
 		);
+
+		$scope.getAlbumTracks = function(id) {
+			Spotify.getTrack.get({
+				id:id}, function(output) {
+					$scope.albumTracks = output.items;
+				}
+		)};
+		
 	Spotify.artistCtrl = true;
 	}
 	}

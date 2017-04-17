@@ -15,8 +15,7 @@ queueKle.factory('Spotify',function ($resource) {
 	this.queue = [];
 	this.artistCtrl = false;
 	this.albumCtrl = false;
-	this.userPlaylist = [];
-	this.userPlaylistTitle = [];
+	this.albumIDList = [];
 
 
 	//sort variables
@@ -38,31 +37,33 @@ queueKle.factory('Spotify',function ($resource) {
 	}
 	*/
 
+
 	//calculates totalplaytime in playlist
 	this.getPlaylistTime = function(playlist) {
 		var runtime = 0;
 		for (song in playlist) {
 			runtime += playlist[song].duration_ms * 0.001;
 		}
+
 		var min = 0;
-		var sec = runtime;
+		var test = runtime;
 		var rest=true;
 		while (rest==true) {
-			if (sec-60 > 0) {
-				sec = sec-60;
+			
+			if (test-60 > 0) {
+				test = test-60;
 				min +=1;
 			} 
+
 			else {
-				sec = Math.round(sec)
+				test = Math.round(test)
 				rest=false;
 			}
+
 		}
-		if (sec < 10) {
-			var seconds = "0"+sec
-		} 
-		return [min, seconds];
+		return [min, test];
 	}
-	//updates the cookies
+
 	this.updateCookieQueue = function() {
 		var cookieQueue = [];
 		for (song in this.queue) {
@@ -71,16 +72,16 @@ queueKle.factory('Spotify',function ($resource) {
 
 		$cookieStore.put("queue", cookieQueue);
 	}
-	//adds song to queue
+
 	this.addToPlaylist = function(song) {
 		this.queue.push(song);
 		//this.updateCookieQueue();
 	}
-	//resets the playlist when playlist is saved
+
 	this.resetPlaylist = function() {
 		this.queue = [];
 	}
-	//Deletes song from queue
+
 	this.removeSong = function(id) {
 		for (song in this.queue) {
 			if (id == this.queue[song].id) {
@@ -88,12 +89,7 @@ queueKle.factory('Spotify',function ($resource) {
 			}
 		}
 	}
-	//returns the queue
-	this.getQueue = function() {
-		return this.queue;
-	}
 
-	//Spotify Api-requests
 	this.Artist = $resource('https://api.spotify.com/v1/search?q=:name&type=artist&limit=5',{},{
     get: {
 		}
@@ -111,6 +107,10 @@ queueKle.factory('Spotify',function ($resource) {
 	this.album = $resource('https://api.spotify.com/v1/search?q=:name&type=album&limit=5',{},{
 		get: {}
 	});
+
+	this.getQueue = function() {
+		return this.queue;
+	}
 
 	this.artistAlbum = $resource('https://api.spotify.com/v1/artists/:id/albums',{},{
     get: {
@@ -134,6 +134,6 @@ queueKle.factory('Spotify',function ($resource) {
 
 	return this;
 
-	getCookieQueue();
+	//getCookieQueue();
 
-});
+})

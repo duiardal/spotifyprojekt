@@ -1,0 +1,58 @@
+<div class="container-fluid" id="body2">
+	<div class="row" ng-controller="RegController">
+		<div class="col-md-9" id="box2">
+			<div class="row" id="header2">
+				<ng-include src="'partials/header.html'"></ng-include>
+			</div>
+
+			<div class="row">
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-10" id="playlistname">
+					<h2>{{selUser.username}}</h2>
+				</div>
+				<div class="col-md-1" id="playlistname2" ng-controller="searchCtrl">
+					<a href="" id="sortLink" ng-click="addFriend(selUser)">
+						<div class="col-md-1" style="padding-right: 0;">
+						<h4>
+							<span class="glyphicon glyphicon-user"></span>
+						</h4>
+						</div>
+						<div class="col-md-1">
+							<p style="padding-top: 1em; padding-left: 0;">
+								<span id="{{selUser.id}}" class="{{friendStatus(selUser.id)}}"></span>
+							</p>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-12">
+							<h3>Playlists:</h3>
+						</div>
+					</div>
+					<div class="row" ng-repeat="(key, i) in selUser.playlists">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12" id="playlistname">
+									<a ng-href="#!/playlistPage/{{i.PlaylistName}}" ng-click="getUsersPlaylist(key, selUser, i.PlaylistName)" id="sortLink"><h4>{{i.PlaylistName}}</h4></a>
+								</div>
+							</div>
+							<hr>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<ng-include src="'partials/queueList.html'"></ng-include>
+		</div>
+	</div>
+
+		
+	<div class="col-md-12" ng-if="error">
+		<h4>Error: <strong>{{ message }}</strong></h4>
+	</div>
+</div>

@@ -95,7 +95,6 @@ height: 100%;
 
 #transparentButton {
 	background: rgba(255, 255, 255, 0.3);
-	color:white;
 }
 
 #padding {
@@ -299,3 +298,5 @@ height: 100%;
   height: 3px;
   background-color: #4CAF50;
 }
+
+
