@@ -1,6 +1,16 @@
-<div class="row" ng-controller="searchCtrl">
+<div class="row" ng-controller="searchCtrl" style="padding: 0em; margin:0em;">
 	<div class="col-md-12">
 		<h2 id="yo">Queue list</h2>
+		<!--Edit Order button-->
+		<div class="row">
+			<div class="col-md-10">
+			</div>
+			<div class="col-md-2">
+				<button id="transparentButton" type="button" class="btn btn-default btn-md" ng-click="change =! change" style="color:white;">Edit</button>
+			</div>
+		</div>
+		</br>
+		
 		<!--Displays The Queue-->
 		<ol id="queueList">
 			<div class="row" ng-repeat="song in getList() track by $index">
@@ -10,6 +20,7 @@
 		    	</div>
 				<div class="col-md-5">
 					<li>
+					<div class="row">
 						{{song.name}}
 						<a style="color:white" href="" ng-click="player(song.preview_url)"><span class="glyphicon glyphicon-volume-up"></span></a>
 					</li> 
@@ -25,19 +36,20 @@
 			</div>
 		</ol>
 		</br>
-		<!--Edit Order button-->
-		<div class="row">
-			<div class="col-md-12">
-				<button id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="change =! change" style="color:white;">Edit</button>
-			</div>
-		</div>
+
 		<!--Comfirm the Change of order in Queue, Only visable while edit order is clicked-->
-		<div class="row">
-			<div class="col-md-12">
-				<button ng-show="change" id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="changeOrder();resetCheckboxes(); change =! change" style="color:white;">Change Order</button>
+		<div class="row" ng-show="change">
+			<div class="col-md-4">
+				<button  id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="changeOrder();resetCheckboxes(); change =! change" style="color:white;">Change Order</button>
+			</div>
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4">
+				<button  id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="resetQueue(); change =! change" style="color:white;">Delete All</button>
 			</div>
 		</div>
 		</br>
+		
 		<!--Displays totalplay time-->
 		<div class="row">
 			<div class="col-md-5">
@@ -51,7 +63,7 @@
 		<!--Save Queue as Playlist-->
 		<div class="row">
 			<div class="col-md-6">
-				<button type="button" id="transparentButton" class="btn btn-default btn-xs" ng-click="save =! save" style="color:white;">Save Queue as Playlist </button>
+				<button type="button" id="transparentButton" class="btn btn-default btn-md" ng-click="save =! save">Save Queue as Playlist </button>
 			</div>
 		</div>
 		<!--Saving Field only visable when Save Queue.. is clicked-->
@@ -65,10 +77,10 @@
 				<div class="row">
 					<form ng-submit="savePlaylist(playlistName); resetQueue(); save =! save">
 					<div class="col-md-5">
-						<input style="color:black;" name="playlistName" placeholder="Playlist name" ng-model="playlistName" ng-required="true">
+						<input class="form-control" style="color:black;" name="playlistName" placeholder="Playlist name" ng-model="playlistName" ng-required="true">
 					</div>
 					<div class="col-md-3">
-						<button  class="btn btn-default btn" ng-model="playlist"><h5>Save</h5></button>
+						<button type="button" id="transparentButton" class="btn btn-default btn-md" ng-model="playlist">Save</button>
 					</div>
 					</form>
 				</div>

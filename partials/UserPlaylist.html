@@ -1,5 +1,6 @@
 <div class="container-fluid" id="body2" style="padding-bottom: 10em;" ng-controller="searchCtrl">
 	<div class="row">
+	<!--All profile info i shown here-->
 		<div class="col-md-9" id="box2">
 			{{userPlaylistPageLoad()}}
 			<ng-include src="'partials/header.html'"></ng-include>
@@ -45,7 +46,7 @@
 					<div class="row" ng-repeat="track in getUserPlaylist()" id="searchResult">
 						<div class="col-md-4">
 							<h5>{{track.name}}
-							<a id="sortLink" style="color:white" ng-click="player(track.preview_url)">
+							<a id="sortLink" href="" style="color:white" ng-click="player(track.preview_url)">
 								<span class="glyphicon glyphicon-volume-up">
 								</span>
 							</a></h5>

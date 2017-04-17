@@ -11,8 +11,19 @@
 						<div class="col-md-4" ng-controller="RegController">
 							<h1>{{selectedUser.PlaylistName}}</h1>
 						</div>
-						<div class="col-md-4" ng-controller="RegController">
-							<h1>Rating: {{selectedUser.Ranking}}</h1>
+						<div class="col-md-3">
+							<h3>Rating: {{currentRating}}</h3>
+						</div>
+						<div class="col-md-2" ng-if="User==false" ng-controller="RegController">
+							<h4 style="padding-top:1em;">
+								<a href="" id="sortLink" ng-click="upvotePlaylist(selUser.id, playlistKey)">
+									<span class="glyphicon glyphicon-thumbs-up">
+										
+									</span>
+								</a>
+								<a href="" id="sortLink" ng-click="downvotePlaylist(selUser.id, playlistKey)"><span class="glyphicon glyphicon-thumbs-down"></span>
+								</a>
+							</h4>
 						</div>
 					</div>
 					<!--Labels-->
@@ -52,11 +63,13 @@
 							</h5>
 							
 						</div>
-						<div class="col-md-2">
-							<h5>{{track.artists[0].name}}</h5>
+						<div class="col-md-2" ng-controller="searchCtrl">
+							<a style="color:white" ng-href='#!/artistPage/{{track.artists[0].id}}' ng-click="getAlbum(track.artists[0].id)">{{track.artists[0].name}}</a>
 						</div>
-						<div class="col-md-2">
-							<h5>{{track.album.name}}</h5>
+						<div class="col-md-2" ng-controller="searchCtrl">
+							<a style="color:white" ng-href='#!/albumPage/{{track.album.id}}'>
+								{{track.album.name}}
+							</a>
 						</div>
 						<div class="col-md-2">
 							<h5>{{track.popularity}}</h5>

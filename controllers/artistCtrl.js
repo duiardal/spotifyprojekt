@@ -1,4 +1,5 @@
 queueKle.controller('artistCtrl', function($scope, Spotify, $routeParams) {
+	Spotify.albumCtrl=false;
 	//Checks that the page is loaded once
 	if (Spotify.artistCtrl == false) {
 		var name = $routeParams
@@ -20,3 +21,4 @@ queueKle.controller('artistCtrl', function($scope, Spotify, $routeParams) {
 	}
 	}
 );
+

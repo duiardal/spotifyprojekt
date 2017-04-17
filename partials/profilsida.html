@@ -54,7 +54,11 @@
 											<div class="col-md-1">
 												<button id="transparentButton" class="btn btn-xs" ng-click="removePlaylist(key)"><span class="glyphicon glyphicon-remove"></span></button>
 											</div>
-										<a ng-controller="searchCtrl" ng-href="#!/playlist" ng-click="getPlaylist(i.playlists, i.PlaylistName)"></div>
+										</div>
+
+										<a ng-controller="searchCtrl" ng-href="#!/playlist" ng-click="getPlaylist(i.playlists, i.PlaylistName)">
+
+
 										<div class="row" style="padding-left: 2em; margin: 0em; font-size: 1em;">
 											<div ng-repeat="x in i.playlists.slice(0,4)" style="float:left;">
 												<img style="height:3em; width:3em;" ng-src="{{x.album.images[0].url}}"></img>
@@ -98,10 +102,10 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="row">
-								<a id="yo" ng-click="userDetails =! userDetails"><h3 style="padding-left: 0.6em;">Userdetails:</h3></a>
+								<a id="yo"><h3 style="padding-left: 0.6em;">Userdetails:</h3></a>
 							</div>
 							<br><br>
-							<div class="row" ng-show="userDetails">
+							<div class="row" >
 								<div class="col-md-4">
 									<!--UserName-->
 									<div class="row">

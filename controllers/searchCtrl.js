@@ -1,5 +1,7 @@
 queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Authentication) {
 	$scope.searchInput=false;
+	Spotify.artistCtrl=false;
+	Spotify.albumCtrl=false;
 	$scope.backButton = function() {
 		$scope.artistResult = Spotify.artistSearch;
 		$scope.albumResult = Spotify.albumSearch;
@@ -17,7 +19,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	//Checks the profile page for header
 	$scope.profilePageLoad = function() {
 		$scope.searchPage = false;
-		$scope.userPage = true;
 	}
 	//Checks the profilePlaylists page for header
 	$scope.userPlaylistPageLoad = function() {
@@ -35,12 +36,21 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	}
 	//Checks the user page for header
 	$scope.friendPageLoad = function() {
+		$scope.User = false;
 		$scope.searchPage = false;
+		if ($rootScope.currentUser.id == $rootScope.selUser.id) {
+			$scope.User=true;
+		}
 	}
 	//Checks the user page for header
 	$scope.friendPlaylistLoad = function() {
+		$scope.User=false;
 		$scope.searchPage = false;
 		$scope.friendPlaylistPage=true;
+		if ($rootScope.currentUser.id == $rootScope.selUser.id) {
+			$scope.User = true;
+		}
+		
 	}
 	//returns the searchword
 	$scope.searchWord = function() {
@@ -55,7 +65,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	}
 
 	$scope.searchUser = function(user) {
-		$scope.userInput = true;
 		Authentication.searchUser(user);
 	};
 
@@ -335,7 +344,10 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 
 		else {
 			symbol.className = "glyphicon glyphicon-minus";
-			Spotify.addToPlaylist(song);
+			Spotify.getTrackByID.get({id:song.id}, function(output){
+				Spotify.addToPlaylist(output);
+			})
+			
 		}		
 	}
 

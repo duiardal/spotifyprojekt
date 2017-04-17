@@ -15,9 +15,6 @@ queueKle.factory('Spotify',function ($resource,$cookieStore) {
 	this.queue = [];
 	this.artistCtrl = false;
 	this.albumCtrl = false;
-	this.userPlaylist = [];
-	this.userPlaylistTitle = [];
-
 
 	//sort variables
 	this.trackSort = true;

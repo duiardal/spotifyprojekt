@@ -12,7 +12,7 @@
 					<h2>{{selUser.username}}</h2>
 				</div>
 				<!--Add User as friend-->
-				<div class="col-md-1" id="playlistname2" ng-controller="searchCtrl">
+				<div class="col-md-1" id="playlistname2" ng-controller="searchCtrl" ng-if="User==false">
 					<a href="" id="sortLink" ng-click="addFriend(selUser)">
 						<div class="col-md-1" style="padding-right: 0;">
 						<h4>
@@ -39,16 +39,19 @@
 							<div class="row" id="searchResult" ng-repeat="(keyVal, favSong) in selUser.favorite_songs" ng-controller="RegController">
 								<div class="col-md-4">
 									<h5>{{favSong.favorites.name}}
-									<a style="color:white" ng-click="player(favSong.favorites.preview_url)">
+									<a href="" style="color:white" ng-click="player(favSong.favorites.preview_url)">
 										<span class="glyphicon glyphicon-volume-up">
 										</span>
 									</a></h5>	
 								</div>
-								<div class="col-md-3">
-									<h5>{{favSong.favorites.artists[0].name}}</h5>
+								<div class="col-md-3" ng-controller="searchCtrl">
+									<a style="color:white" ng-href='#!/artistPage/{{favSong.favorites.artists[0].id}}' ng-click="getAlbum(favSong.favorites.artists[0].id)">{{favSong.favorites.artists[0].name}}
+									</a>
 								</div>
-								<div class="col-md-3">
-									<h5>{{favSong.favorites.album.name}}</h5>
+								<div class="col-md-3" ng-controller="searchCtrl">
+									<a style="color:white" ng-href='#!/albumPage/{{favSong.favorites.album.id}}'>
+										{{favSong.favorites.album.name}}
+									</a>
 								</div>
 								<div class="col-md-1" ng-controller="searchCtrl">
 									<a id="qKnapp" ng-click="queueSong(favSong.favorites)">
@@ -56,11 +59,14 @@
 										</span>
 									</a>
 								</div>
-								<div class="col-md-1">
+								<div class="col-md-1" ng-if="User==false">
 									<a id="sortLink">
 										<span ng-controller="searchCtrl" ng-click="favoriteSong(favSong.favorites)" id="{{favSong.favorites.id}}" class="{{favoriteSongs(favSong.favorites.id)}}">
 										</span>
 									</a>
+								</div>
+								<div class="col-md-1" ng-if="User==true">
+									<button id="transparentButton" class="btn btn-xs" ng-click="deleteFavorite(keyVal)"><span class="glyphicon glyphicon-remove"></span></button>
 								</div>
 							</div>
 							<hr>
@@ -74,7 +80,13 @@
 							</div>
 							<div class="row" style="display: inline-block; margin:0em; padding:0em;">
 								<div ng-repeat="(key, playlist) in selUser.playlists" style=" height: 12em; width: 10em; float:left; margin: 1em;">
-									<div>	
+									<div>
+										<div class="row" style="padding-left: 8em; padding-bottom:1em; margin: 0em;" ng-if="User==true">
+								
+											<div class="col-md-1">
+												<button id="transparentButton" class="btn btn-xs" ng-click="removePlaylist(key)"><span class="glyphicon glyphicon-remove"></span></button>
+											</div>
+										</div>	
 										<a ng-controller="RegController" ng-href="#!/playlistPage/{{selUser.id}}" ng-click="getUsersPlaylist(key, selUser, playlist.PlaylistName)">
 											<div class="row" style="padding-left: 2em; margin: 0em; font-size: 1em;">
 												<div ng-repeat="song in playlist.playlists.slice(0,4)" style="float:left;">
@@ -106,11 +118,69 @@
 										<div class="col-md-11" id="playlistname">
 											<a id="sortLink" ng-click="userSearch(user.friend.id)" ng-href="#!/friends/{{user.friend.id}}"><h3>{{ user.friend.username }}</h3></a>
 										</div>
+										<div class="col-md-1" ng-if="User==true">
+											<button id="transparentButton" class="btn btn-xs" ng-click="deleteUserFromProfile(key)"><span class="glyphicon glyphicon-remove"></span></button>
+										</div>
 									</div>
 									<hr>
 								</div>
 							</div>
 							<hr>
+						</div>
+					</div>
+					<!--ChangeDetails-->
+					<div class="row" ng-if="User==true">
+						<div class="col-md-12">
+							<div class="row">
+								<a id="yo"><h3 style="padding-left: 0.6em;">Userdetails:</h3></a>
+							</div>
+							<br><br>
+							<div class="row" >
+								<div class="col-md-4">
+									<!--UserName-->
+									<div class="row">
+										<div class="col-md-4">
+											<h4>Username:</h4>
+										</div>
+										<div class="col-md-8">
+											<button type="button" id="transparentButton" class="btn btn-secondary btn-sm btn-block" ng-click="open = !open">{{ selUser.username }}</button>    
+											<div ng-class="{ showMe: open }" class="collapsable">
+												<input class="form-control" placeholder="Change username" ng-model="username" ng-required="true">
+												<button type="button" id="transparentButton" class="btn btn-secondary btn-sm btn-block" ng-controller="RegController" ng-click="changeUsername(username)">Change</button>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<!--Email-->
+									<div class="row">
+										<div class="col-md-4">
+											<h4>Email:</h4>
+										</div>
+										<div class="col-md-8">
+
+											<button type="button" id="transparentButton" class="btn btn-secondary btn-sm btn-block" ng-click="open2 = !open2">{{ selUser.email }}</button>    
+											<div ng-class="{ showMe: open2 }" class="collapsable">
+												<input class="form-control" placeholder="Change email" ng-model="email" ng-required="true">
+												<button type="button" id="transparentButton" class="btn btn-secondary btn-sm btn-block" ng-controller="RegController" ng-click="changeEmail(email)">Change</button>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<!--Password-->
+									<div class="row">
+										<div class="col-md-4">
+											<h4>Password:</h4>
+										</div>
+										<div class="col-md-8">
+											<button type="button" id="transparentButton" class="btn btn-secondary btn-sm btn-block" ng-click="open3 = !open3">{{ selUser.password }}</button>
+											<div ng-class="{ showMe: open3 }" class="collapsable">
+												<input class="form-control" placeholder="Change password" ng-model="password" ng-required="true">
+												<button type="button" id="transparentButton" class="btn btn-secondary btn-sm btn-block" ng-controller="RegController" ng-click="changePassword(password)">Change</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

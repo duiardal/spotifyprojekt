@@ -255,14 +255,17 @@ queueKle.factory('Authentication',
     },
 
     searchUser: function(substring){
+      var list = [];
       var reference = $firebaseArray(ref);
       reference.$loaded()
       .then(function(reference) {
         for (i in reference) {
           var string = reference[i].username;
-          if (string.indexOf(substring) !== -1) {
-            $rootScope.searchedUser = reference[i];
-            return
+          var res = string.toLowerCase();
+          console.log(string);
+          if (res.indexOf(substring) !== -1) {
+             list.push(reference[i]);
+             $rootScope.searchedUser = list;
           }
         }
       })

@@ -1,4 +1,5 @@
 queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
+	Spotify.artistCtrl = false;
 	//if-statement checks whether the page has been loaded or not.
 	if (Spotify.albumCtrl == false) {
 		var name = $routeParams;
@@ -10,6 +11,7 @@ queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
 				$scope.albumName = output.name;
 				$scope.albumImg = output.images[1].url;
 				$scope.albumTracks = output.tracks.items;
+				console.log(output);
 			}
 		);
 	}

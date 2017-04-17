@@ -3,47 +3,31 @@
 		<div class="row" id="searchBar2">
 			<!--Shown when visiting friendPlaylistPage-->
 			<div class="col-md-2" ng-if="friendPlaylistPage==true">
-				<a id="sortLink" ng-href="#!/friends/{{selectedUserID}}">
-					<h3 class="glyphicon glyphicon-circle-arrow-left">
+				<a ng-href="#!/friends/{{currentUser.id}}">
+					<h3 class="glyphicon glyphicon-circle-arrow-left" id="yo">
 					</h3>
 				</a>
-			</div>
-
-			<div class="col-md-2" ng-if="userPage==true">
-				<a id="sortLink" ng-href="#!/profilsida">
-					<h3 class="glyphicon glyphicon-circle-arrow-left">
-					</h3>
-				</a>
-			</div>
-
-			<div class="col-md-1">
 			</div>
 
 			<!--Shown when visiting currentUsers playlists-->
 			<div class="col-md-2" ng-if="currentProfilePlaylist==true">
-				<a id="sortLink" ng-href="#!/profilsida">
-					<h3 class="glyphicon glyphicon-circle-arrow-left">
+				<a ng-href="#!/profilsida">
+					<h3 class="glyphicon glyphicon-circle-arrow-left" id="yo">
 					</h3>
 				</a>
 			</div>
 
-			<div class="col-md-1">
-			</div>
-
 			<!--Shown at albumPage-->
 			<div class="col-md-2" ng-if="albumToArtist==true">
-				<a id="sortLink" ng-href="#!/artistPage/{{artistId}}" ng-click="backButton()">
-					<h3>Artist</h3>
+				<a ng-href="#!/artistPage/{{artistId}}" ng-click="backButton()">
+					<h3 id="yo">Artist</h3>
 				</a>
-			</div>
-
-			<div class="col-md-1">
 			</div>
 
 			<!--Shown everywhere excepts searchPage-->
 			<div class="col-md-2" ng-if="searchPage==false">
-				<a id="sortLink" ng-href="#!/search" ng-click="backButton()">
-					<h3 class="glyphicon glyphicon-search">
+				<a ng-href="#!/search" ng-click="backButton()">
+					<h3 class="glyphicon glyphicon-search" id="yo">
 					</h3>
 				</a>
 			</div>
@@ -51,13 +35,15 @@
 	</div>
 
 	<!--SearchBox-->
-	<div class="col-md-4" ng-if="searchPage==true" ng-controller="searchCtrl" id="searchBar2">
-		<form ng-submit="searchArtist(input);searchTracks(input);searchAlbums(input);searchUser(input)">
-			<div class="input-group input-group-md">
-				<span class="input-group-addon"><span class="glyphicon glyphicon-search" ng-click="searchArtist(input);searchTracks(input);searchAlbums(input);searchUser(input)" style="color:grey;"></span></span>
-				<input ng-model="input" id="search" placeholder="Search" style="width: 20em;"/>
-			</div>
-		</form>
+	<div class="col-md-4" ng-if="searchPage==true" ng-controller="searchCtrl">
+		<div class="row" id="searchBar2">
+			<form ng-submit="searchArtist(input);searchTracks(input);searchAlbums(input);searchUser(input)">
+				<div class="input-group input-group-md">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-search" ng-click="searchArtist(input);searchTracks(input);searchAlbums(input);searchUser(input)" style="color: grey;"></span></span>
+					<input ng-model="input" id="search" placeholder="Search" style="width: 20em;"/>
+				</div>
+			</form>
+		</div>
 	</div>
 
 	<!--Titel-->
@@ -72,12 +58,13 @@
 		<div class="row" id="searchBar">
 			<div ng-controller="RegController">
 				<div class="col-md-8">
-					<h4><span id="userIcon" class="glyphicon glyphicon-user"></span> Logged in as: <a id="sortLink" ng-href="#!/profilsida">{{ currentUser.username }}</a></h4>
+					<h4><span id="userIcon" class="glyphicon glyphicon-user"></span> Logged in as: <a id="sortLink" ng-click="userSearch(currentUser.id)" ng-href="#!/friends/{{currentUser.id}}">{{ currentUser.username }}</a></h4>
 				</div>
 				<div class="col-md-3">
-					<a href="" ng-click="logout()"><h4 id="userIcon" class="glyphicon glyphicon-log-out" style="float:right;"></h4></a>
+					<a href="" ng-click="logout()"><h4 id="userIcon" class="glyphicon glyphicon-log-out"></h4></a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
