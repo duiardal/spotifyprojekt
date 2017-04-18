@@ -10,6 +10,7 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	};
 	//Logout
 	$scope.logout = function() {
+		Spotify.resetPlaylist();
 		Authentication.logout();
 	};
 	//register
@@ -75,6 +76,8 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	}
 	//Retrives a users playlist
 	$scope.getUsersPlaylist = function(key, object, playId) {
+		console.log(playId);
+		Spotify.insertUserCookie(key,object.id,playId);
 		Authentication.usersPlaylist(key, object, playId);
 
 	};

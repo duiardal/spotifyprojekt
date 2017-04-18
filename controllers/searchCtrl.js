@@ -1,4 +1,4 @@
-queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Authentication) {
+queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScope,Spotify,Authentication) {
 	$scope.searchInput=false;
 	Spotify.artistCtrl=false;
 	Spotify.albumCtrl=false;
@@ -9,12 +9,12 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 		Spotify.artistCtrl = false;
 		Spotify.albumCtrl = false;
 		Spotify.back = true;
-		$scope.searchInput = true;
-
 	}
 	//Checks the search page for header
 	$scope.searchPageLoad = function() {
 		$scope.searchPage = true;
+		Spotify.reload=true;
+		Spotify.selUserLoad=true;
 	}
 	//Checks the profile page for header
 	$scope.profilePageLoad = function() {
@@ -25,6 +25,13 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 		$scope.searchPage = false;
 		$scope.currentProfilePlaylist=true;
 	}
+
+	$scope.getRowIndex = function(index) {
+		var result = index +1;
+		result = result+". "
+		return result
+	}
+
 	//Checks the album page for header
 	$scope.albumPageLoad = function() {
 		$scope.albumToArtist =true;
@@ -36,19 +43,59 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	}
 	//Checks the user page for header
 	$scope.friendPageLoad = function() {
+		if (Spotify.reload == false) {
+			Authentication.userSearch($routeParams.id);
+			Spotify.reload=true;
+		}
 		$scope.User = false;
 		$scope.searchPage = false;
-		if ($rootScope.currentUser.id == $rootScope.selUser.id) {
-			$scope.User=true;
+		if ($rootScope.selUser) {
+			if ($rootScope.currentUser.id == $rootScope.selUser.id) {
+				$scope.User = true;
+			}
+			else{
+
+			}
+		}
+		else {	
 		}
 	}
 	//Checks the user page for header
 	$scope.friendPlaylistLoad = function() {
+		//Checks if page is reloaded
+		if (Spotify.reload == false) {
+			Authentication.userSearch($routeParams.id);
+			Spotify.reload=true;
+		}
 		$scope.User=false;
-		$scope.searchPage = false;
+		$scope.searchPage=false;
 		$scope.friendPlaylistPage=true;
-		if ($rootScope.currentUser.id == $rootScope.selUser.id) {
-			$scope.User = true;
+
+		if ($rootScope.selUser) {
+				//Checks if page is reloaded
+				if (Spotify.selUserLoad == false) {
+					var list = Spotify.userInfo;
+					for (i in $rootScope.selUser.playlists){
+						if (i==list[0]){
+							if ($rootScope.selUser.playlists[i].PlaylistName == list[2]) {
+								$rootScope.selectedUser = $rootScope.selUser.playlists[i];
+								$rootScope.currentRating = $rootScope.selUser.playlists[i].Ranking;
+							}
+						}
+					}
+					Spotify.selUserLoad = true;
+				}
+			if ($rootScope.selectedUser) { 
+				if ($rootScope.currentUser.id == $rootScope.selUser.id) {
+					$scope.User = true;
+				}
+				else{
+				}
+			}
+			else{
+			}
+		}
+		else {
 		}
 		
 	}
@@ -60,7 +107,9 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	//Checks if page has ever been loaded
 	$scope.changeToResults = function() {
 		if (Spotify.back) {
-			$scope.searchInput = true;
+			if (Spotify.searchWord) {
+				$scope.searchInput = true;
+			}
 		}
 	}
 
@@ -296,13 +345,17 @@ queueKle.controller('searchCtrl', function($scope,$window,$rootScope,Spotify,Aut
 	//Fills in favorited songs in Search
 	$scope.friendStatus = function(id) {
 		var result = "glyphicon glyphicon-plus";
-		var key = $rootScope.currentUser.friends;
-		for (friend in key) {
-			if (key[friend].friend.id == id){
-				result = "glyphicon glyphicon-minus";
+		if ($rootScope.currentUser) {
+			var key = $rootScope.currentUser.friends;
+
+			for (friend in key) {
+				if (key[friend].friend.id == id){
+					result = "glyphicon glyphicon-minus";
+				}
 			}
 		}
 		return result;
+
 	}
 
 	//Adds and removes songs in profil

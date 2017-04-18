@@ -1,4 +1,4 @@
-queueKle.factory('Spotify',function ($resource,$cookieStore) {
+queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 
 	//search variables
 	this.searchBack = false;
@@ -9,7 +9,10 @@ queueKle.factory('Spotify',function ($resource,$cookieStore) {
 	this.artistName = [];
 	this.searched = null;
 	this.back = false;
-	this.searchWord = [];
+	this.searchWord = undefined;
+	this.reload=false;
+	this.selUserLoad = false;
+
 
 	//global variabels
 	this.queue = [];
@@ -21,6 +24,7 @@ queueKle.factory('Spotify',function ($resource,$cookieStore) {
 	this.artistSort = true;
 	this.albumSort = true;
 	this.popSort = true;
+	this.userInfo = [];
 	
 	_this = this;
 	this.getCookieQueue = function() {
@@ -30,6 +34,18 @@ queueKle.factory('Spotify',function ($resource,$cookieStore) {
 				_this.queue.push(data);
 			 });
 		}
+	}
+	_this = this;
+	this.getCookieUser = function(){
+		var tempUser = $cookieStore.get("id");
+		for (item in tempUser) {
+			_this.userInfo.push(tempUser[item]);
+		}
+	}
+
+	this.insertUserCookie = function(key,id,name) {
+		var list = [key,id,name];
+		$cookieStore.put("id", list);
 	}
 
 
@@ -135,6 +151,7 @@ queueKle.factory('Spotify',function ($resource,$cookieStore) {
     get: {
 		}
 	});
+	this.getCookieUser();
 	this.getCookieQueue();
 	return this;
 
