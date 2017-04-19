@@ -238,7 +238,7 @@ queueKle.factory('Authentication',
       reference.$loaded().then(function(reference){
       reference.$add({
         comment: comment,
-        commentBy: $rootScope.currentUser
+        commentBy: $rootScope.currentUser.username
       }).then(function(reference) {
         console.log("comment added");
         //var test = $rootScope.selUser;
