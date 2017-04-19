@@ -95,7 +95,7 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	};
 
 	$scope.checkUser = function(user) {
-		if (user.id == $rootScope.currentUser.id) {
+		if (user == $rootScope.currentUser.username) {
 			return true;
 		}
 		else {
