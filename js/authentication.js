@@ -29,7 +29,7 @@ queueKle.factory('Authentication',
       }).catch(function(error) {
         console.log(error);
         $rootScope.error = error;
-        $rootScope.message = error.message;
+        $rootScope.errorMessage = error.message;
       }); //signInWithEmailAndPassword
     }, //login
 
@@ -58,18 +58,17 @@ queueKle.factory('Authentication',
           myObject.login(user);
           $location.path('/search');
       }).catch(function(error) {
-        $rootScope.message = error.message;
+        $rootScope.errorMessage = error.message;
       }); //createUserWithEmailAndPassword
     }, //register
 
-    createPlaylist: function(playlistName, playlist, comments) {
-      console.log(comments);
+    createPlaylist: function(playlistName, playlist) {
       var list = $firebaseArray(ref.child($rootScope.currentUser.id).child("playlists"));
       list.$add({
         playlists: playlist,
         PlaylistName: playlistName,
         Ranking: 0,
-        comment: comments
+        comments: ''
       })
       .then(function(ref) {
         var id = ref.key;
@@ -141,7 +140,7 @@ queueKle.factory('Authentication',
           }).catch(function(error) {
             console.log(error);
             $rootScope.error = error;
-            $rootScope.message = error.message;
+            $rootScope.errorMessage = error.message;
           });
         });
       })
@@ -158,7 +157,7 @@ queueKle.factory('Authentication',
           }).catch(function(error) {
             console.log(error);
             $rootScope.error = error;
-            $rootScope.message = error.message;
+            $rootScope.errorMessage = error.message;
           });
         });
       })
@@ -180,6 +179,8 @@ queueKle.factory('Authentication',
         for (obj in reference) {
           if (reference[obj].id == id) {
             $rootScope.selUser = reference[obj];
+            console.log($rootScope.selUser);
+            console.log($rootScope.currentUser);
           }
         }
       })
@@ -189,12 +190,17 @@ queueKle.factory('Authentication',
       var reference = $firebaseArray(ref);
       var thisUser;
       reference.$loaded().then(function(reference) {
+        console.log(reference);
+        console.log(object);
+        console.log(playName);
+        console.log($rootScope.selUser);
         for (obj in reference) {
           if (reference[obj].id == object.id) {
             thisUser = reference[obj];
             for (playList in thisUser.playlists) {
               if (thisUser.playlists[playList].PlaylistName == playName) {
                 $rootScope.selectedUser = thisUser.playlists[playList];
+                console.log($rootScope.selectedUser);
                 $rootScope.playlistKey = key;
                 $rootScope.currentRating = thisUser.playlists[playList].Ranking;
               }
@@ -213,6 +219,47 @@ queueKle.factory('Authentication',
         console.log("added record with id " + id);
       })
     },
+
+    /*upvotePlaylist: function(key, nyckel) {
+      var reference2 = $firebaseObject(ref.child(key).child("playlists").child(nyckel));
+      reference2.$loaded().then(function(reference){
+        reference2.Ranking += 1;
+        reference2.$save().then(function() {
+          $rootScope.currentRating = reference2.Ranking;
+          console.log("Playlist upvoted");
+        })
+      })
+    },*/
+
+    addCommentToPlaylist: function(comment, nyckel,id) {
+      console.log(id);
+      console.log(nyckel);  
+      var reference = $firebaseArray(ref.child(id).child("playlists").child(nyckel).child("comments"));
+      reference.$loaded().then(function(reference){
+      reference.$add({
+        comment: comment,
+        commentBy: $rootScope.currentUser
+      }).then(function(reference) {
+        console.log("comment added");
+        //var test = $rootScope.selUser;
+        //usersPlaylist(id, test, name);
+      })
+    })
+    },
+
+    deleteCommentFromPlaylist: function(commentID, nyckel, id) {
+      console.log(id);
+      var reference = $firebaseArray(ref.child(id).child("playlists").child(nyckel).child("comments"));
+          reference.$loaded().then(function(reference){
+            var item = reference.$getRecord(commentID);
+            reference.$remove(item).then(function(ref) {
+              console.log("success");
+              //var test = $rootScope.selUser;
+              //usersPlaylist(id, test, name);
+            })
+        });
+    },
+
     
 
     deleteUserFromProfile: function(user) {
@@ -239,6 +286,7 @@ queueKle.factory('Authentication',
     },
 
     deleteFavorite: function(track) {
+      console.log("hej");
       var list = $firebaseArray(ref.child($rootScope.currentUser.id).child("favorite_songs"));
       list.$loaded().then(function(list){
         var item = list.$getRecord(track);
@@ -258,6 +306,7 @@ queueKle.factory('Authentication',
         for (i in reference) {
           var string = reference[i].username;
           var res = string.toLowerCase();
+          console.log(string);
           if (res.indexOf(substring) !== -1) {
              list.push(reference[i]);
              $rootScope.searchedUser = list;
@@ -266,7 +315,7 @@ queueKle.factory('Authentication',
       })
       .catch(function(error) {
         $rootScope.error = error;
-        $rootScope.message = "User not found!";
+        $rootScope.errorMessage = "User not found!";
       })
     },
 
