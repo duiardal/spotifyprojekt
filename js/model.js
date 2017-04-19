@@ -113,6 +113,10 @@ queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 		}
 	});
 
+	this.topTracks = $resource('https://api.spotify.com/v1/artists/:id/top-tracks?country=SE',{},{
+		get: {}
+	});
+
 	this.AlbumSearchArtistId = $resource('https://api.spotify.com/v1/artists/:id/albums',{},{
     get: {
 		}

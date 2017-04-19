@@ -17,6 +17,18 @@ queueKle.controller('artistCtrl', function($scope, Spotify, $routeParams) {
 				$scope.genres = output.genres;
 			}
 		);
+
+		Spotify.topTracks.get({id:name.id}, function(output){
+			console.log(output);
+			$scope.topTracks = output.tracks
+		});
+		//Returns the right index for the songs
+		$scope.getRowIndex = function(index) {
+			var result = index +1;
+			result = result+". "
+			return result
+		}
+
 	Spotify.artistCtrl = true;
 	}
 	}

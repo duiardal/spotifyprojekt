@@ -9,6 +9,7 @@ queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
 				$scope.artist = output.artists[0].name;
 				$scope.artistId = output.artists[0].id;
 				$scope.albumName = output.name;
+				$scope.release = output.release_date;
 				$scope.albumImg = output.images[1].url;
 				$scope.albumTracks = output.tracks.items;
 				console.log(output);
@@ -30,7 +31,6 @@ queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
 				rest=false;
 			}
 		}
-
 		if (test<10) {
 			var result = min + ":0" + test;
 		}

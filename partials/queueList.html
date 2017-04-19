@@ -49,25 +49,28 @@
 			<div class="col-md-5">
 				<div class="row">
 					{{getRowIndex($index)}}{{song.name}}
-					<a id="sortLink" href="" ng-click="player(song.preview_url)"><span class="glyphicon glyphicon-volume-up"></span></a>
+					<a id="sortLink" href="" ng-click="player(song.preview_url)">
+						<span class="glyphicon glyphicon-volume-up"></span>
+					</a>
 				</div>
-				
 			</div>
 			<div class="col-md-5">
 				<div class="row">
 					<a id="sortLink" ng-href='#!/artistPage/{{song.artists[0].id}}' ng-click="getAlbum(song.artists[0].id)">
-					{{song.artists[0].name}}
+						{{song.artists[0].name}}
 					</a>
 				</div>
 			</div>
 			<div class="col-md-1" ng-show="change">
 				<div class="row">
 					<a id="sortLink" href="" ng-click="removeSong(song.id)">
-					<span class="glyphicon glyphicon-remove"></span>
+						<span class="glyphicon glyphicon-remove">
+						</span>
 					</a>
 				</div>
 			</div>
 		</div>
+		
 		<div class="row">
 			<hr></hr>
 		</div>
