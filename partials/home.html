@@ -1,9 +1,9 @@
-<div class="row" id="body">
+<div class="container-fluid" id="body">
 	<div class="row" id="header">
 		<div class="col-md-4">
 		</div>
 		<div class="col-md-4" id="header-title">
-			<h1>Queue</h1>
+			<h1>KléQueue</h1>
 		</div>
 		<div class="col-md-4">
 		</div>
@@ -45,10 +45,12 @@
 			<div class="col-md-2">
 			</div>
 		</div>
-		
-
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+		</div>
 		<div class="col-md-12" ng-if="error">
-			<h4>Error: <strong>{{ message }}</strong></h4>
+			<h4>Error: <strong>{{ errorMessage }}</strong></h4>
 		</div>
 	</div>
 	<div class="row" id="footer">
