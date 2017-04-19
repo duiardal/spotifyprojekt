@@ -1,39 +1,49 @@
-<div class="container-fluid" id="body2">
+<div class="container-fluid" id="body2" ng-controller="searchCtrl">
 	<div class="row">
 		<div class="col-md-9" id="box2">
-			<div class="row" id="header2">
-				<ng-include src="'partials/header.html'"></ng-include>
-			</div>
-			<div class="row" id="header2">
-				<div class="col-md-12" id="margin">
-					<h1 id="yo"><img ng-src="{{artistImg}}" id="searchArtistImage"/>	{{artist}}</h1>
+			{{artistPageLoad()}}
+			<ng-include src="'partials/header.html'"></ng-include>
+			<!--Artist info-->
+			<div class="row" id="header2" ng-controller="searchCtrl">
+				<div class="col-md-4" id="margin">
+					<h1><img ng-src="{{artistImg}}" id="searchArtistImage"/></h1>
+				</div>
+				<div class="col-md-8">
+					<h1 id="yo">{{artist}}</h1>
+					<div class="row">
+						<div class="col-md-3">
+							<h3>Genre</h3>
+						</div>
+					</div>
+					<div class="row" ng-repeat="genre in genres.slice(0,2)">
+						<div class="col-md-2">
+							<h4>{{genre}}</h4>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row" id="padding">
 				<div class="col-md-12"><h1 id="yo">Albums</h1></div>
 			</div>
+			<!--All Artist Albums-->
 			<div class="row" id="padding">
-				<div class="col-md-3" ng-repeat="album in albumResult">
-					<a ng-href='#!/albumPage/{{album.id}}'><img ng-src="{{album.images[0].url}}" id="searchArtistImage"/></a>
-					<p>{{album.name}}</p>
+				<div class="col-md-3" ng-repeat="album in albumResult" style="height:10em;">
+					<div class="row">
+						<div class="col-md-12">
+							<a ng-href='#!/albumPage/{{album.id}}'><img ng-src="{{album.images[0].url}}" id="searchArtistImage"/></a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<p>{{album.name}}</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
+		<!--Queue-->
 		<div class="col-md-3">
 			<ng-include src="'partials/queueList.html'"></ng-include>
 		</div>
 	</div>
 </div>
-
-
-<!--<a ng-click="getAlbumTracks(album.id); showDiv = ! showDiv;">
-	<div class="row">
-		<h4><img ng-src="{{album.images[0].url}}" id="searchArtistImage"/>		{{album.name}}</h4>
-	</div>
-</a>-->
-
-<!--<ol>
-	<div class="row" ng-repeat="track in albumTracks" ng-show="showDiv">
-		<div class="col-md-8"><li id="space">{{track.name}}</div><div class="col-md-4">{{track.duration_ms}}</div></li>
-	</div>
-</ol>-->
