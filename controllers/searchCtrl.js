@@ -3,6 +3,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 	$scope.searchInput=false;
 	Spotify.artistCtrl=false;
 	Spotify.albumCtrl=false;
+	$scope.save = false;
 
 	//Backbutton changes the states of variables that search is displayed correctly
 	$scope.backButton = function() {
@@ -13,17 +14,20 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		Spotify.albumCtrl = false;
 		Spotify.back = true;
 	}
+
 	//Checks the search page for header
 	$scope.searchPageLoad = function() {
 		$scope.searchPage = true;
 		Spotify.reload=true;
 		Spotify.selUserLoad=true;
 	}
+
 	//Checks the album page for header
 	$scope.albumPageLoad = function() {
 		$scope.albumToArtist =true;
 		$scope.searchPage = false;
 	}
+
 	//Checks the artist page for header
 	$scope.artistPageLoad = function() {
 		$scope.searchPage = false;
@@ -48,6 +52,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		else {	
 		}
 	}
+
 	//Checks the user page for header
 	$scope.friendPlaylistLoad = function() {
 		//Checks if page is reloaded
@@ -85,7 +90,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		}
 		else {
 		}
-		
 	}
 
 	//Returns the right index for the songs
@@ -106,13 +110,18 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		}
 	}
 
-	
-	
+	//checkMessage
+	$scope.messageFunction = function() {
+		var bol = $rootScope.messageSaved;
+		return bol;
+	}
+
 	//returns the searchword
 	$scope.searchWord = function() {
 		var test = Spotify.searchWord;
 		return test;
 	}
+
 	//Checks if page has ever been loaded
 	$scope.changeToResults = function() {
 		if (Spotify.back) {
@@ -122,6 +131,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		}
 	}
 
+	//Searches for a specific user
 	$scope.searchUser = function(user) {
 		Authentication.searchUser(user);
 	};
@@ -146,6 +156,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 			Spotify.artistSearch = output.artists.items;
 		});
 	}
+
 	//Gets the tracks in search
 	$scope.searchTracks = function(input) {
 		Spotify.track.get({track:input}, function(output){
@@ -159,6 +170,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 
 		});
 	}
+
 	//Gets the albums in search
 	$scope.searchAlbums = function(input) {
 		Spotify.album.get({name:input}, function(output) {
@@ -169,7 +181,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 
 	$scope.getAlbums = function() {
 		return Spotify.ArtistAlbums;
-
 	}
 
 	$scope.getArtistName = function() {
@@ -225,7 +236,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		}
 
 		Spotify.trackSearch = $scope.trackResult;
-
 	}
 
 	//sorterar artisterna i bokstavsordning
@@ -364,7 +374,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 			}
 		}
 		return result;
-
 	}
 
 	//Adds and removes songs in profil
@@ -407,6 +416,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		else {
 			symbol.className = "glyphicon glyphicon-minus";
 			Spotify.getTrackByID.get({id:song.id}, function(output){
+				$rootScope.messageSaved=false;
 				Spotify.addToPlaylist(output);
 			})
 			
@@ -422,6 +432,16 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 	//Resets the queue when queue is saved as new playlist
 	$scope.resetQueue = function() {
 		Spotify.resetPlaylist();
+	}
+
+	//shows the saving playlist icons
+	$scope.saveFunction = function() {
+		if ($scope.save) {
+			$scope.save = false;
+		}
+		else {
+			$scope.save = true;
+		}
 	}
 
 	//Ändrar ordningen i kön
@@ -524,7 +544,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
     $scope.getPlaylist = function(playlist, title) {
     	Spotify.userPlaylist = playlist;
     	Spotify.userPlaylistTitle = title;
-    	
     }
 
     //Retrives the title of the playlist

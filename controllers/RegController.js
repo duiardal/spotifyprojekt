@@ -1,9 +1,11 @@
 queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Authentication', 'Spotify',
 	function($scope,$routeParams,$rootScope,Authentication,Spotify) {
-
+	//Initial Variables
 	var route = $routeParams;
 	var rootballs = $rootScope;
 	$scope.userInput = false;
+	$scope.message = false;
+
 	//Login
 	$scope.login = function(user) {
 		Authentication.login(user);
@@ -19,6 +21,7 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	}; 
 	//Saves the playlist
 	$scope.savePlaylist = function(playlistName) {
+		$rootScope.messageSaved = true;
 		var playlist = Spotify.getQueue();
 		Authentication.createPlaylist(playlistName, playlist);
 	}
@@ -28,7 +31,6 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	}
 	//Removes the playlist
 	$scope.removePlaylist = function(playlistId) {
-		console.log(playlistId);
 		Authentication.deletePlaylist(playlistId);
 	}
 	//Changes the email-adress for Users Account
@@ -58,8 +60,6 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	}
 	//Upvote playlist?
 	$scope.upvotePlaylist = function(key, nyckel) {
-		console.log("bajs");
-		console.log(key,nyckel);
 		Authentication.upvotePlaylist(key, nyckel);
 	}
 	//Downvote playlist?
@@ -76,7 +76,6 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	}
 	//Retrives a users playlist
 	$scope.getUsersPlaylist = function(key, object, playId) {
-		console.log(playId);
 		Spotify.insertUserCookie(key,object.id,playId);
 		Authentication.usersPlaylist(key, object, playId);
 

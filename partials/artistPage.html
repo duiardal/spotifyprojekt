@@ -10,7 +10,12 @@
 				</div>
 				<div class="col-md-8">
 					<h1 id="yo">{{artist}}</h1>
-					<div class="row" ng-repeat="genre in genres">
+					<div class="row">
+						<div class="col-md-3">
+							<h3>Genre</h3>
+						</div>
+					</div>
+					<div class="row" ng-repeat="genre in genres.slice(0,2)">
 						<div class="col-md-2">
 							<h4>{{genre}}</h4>
 						</div>

@@ -1,5 +1,4 @@
 queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
-
 	//search variables
 	this.searchBack = false;
 	this.artistSearch = [];
@@ -12,7 +11,6 @@ queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 	this.searchWord = undefined;
 	this.reload=false;
 	this.selUserLoad = false;
-
 
 	//global variabels
 	this.queue = [];
