@@ -43,6 +43,7 @@ queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 
 	this.insertUserCookie = function(key,id,name) {
 		var list = [key,id,name];
+		this.userInfo = list;
 		$cookieStore.put("id", list);
 	}
 
