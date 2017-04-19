@@ -23,13 +23,12 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	$scope.savePlaylist = function(playlistName) {
 		$rootScope.messageSaved = true;
 		var playlist = Spotify.getQueue();
-		var commentList = [];
-		Authentication.createPlaylist(playlistName, playlist, commentList);
+		Authentication.createPlaylist(playlistName, playlist);
 	}
 	//Retrives the playlist
-	$scope.getPlaylist = function() {
+	/*$scope.getPlaylist = function() {
 		Authentication.getPlaylists();
-	}
+	}*/
 	//Removes the playlist
 	$scope.removePlaylist = function(playlistId) {
 		Authentication.deletePlaylist(playlistId);
@@ -85,5 +84,30 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	$scope.searchUser = function(user) {
 		$scope.userInput = true;
 		Authentication.searchUser(user);
+	};
+
+	$scope.addCommentToPlaylist = function(comment) {
+		var list = Spotify.userInfo;
+		console.log(list);
+		console.log($rootScope.selUser);
+		Authentication.addCommentToPlaylist(comment, list[0],list[1]);
+		Authentication.usersPlaylist(list[0],$rootScope.selUser,list[2]);
+	};
+
+	$scope.checkUser = function(user) {
+		if (user.id == $rootScope.currentUser.id) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	$scope.deleteComment = function(commentID) {
+		console.log(commentID);
+		var list = Spotify.userInfo;
+		Authentication.deleteCommentFromPlaylist(commentID, list[0], list[1]);
+		Authentication.usersPlaylist(list[0],$rootScope.selUser,list[2]);
 	};
 }]); 
