@@ -108,7 +108,7 @@ queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 	}
 
 	//Spotify Api-requests
-	this.Artist = $resource('https://api.spotify.com/v1/search?q=:name&type=artist&limit=5',{},{
+	this.Artist = $resource('https://api.spotify.com/v1/search?q=:name&type=artist&limit=1',{},{
     get: {
 		}
 	});
@@ -117,7 +117,7 @@ queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 		get: {}
 	});
 
-	this.AlbumSearchArtistId = $resource('https://api.spotify.com/v1/artists/:id/albums',{},{
+	this.AlbumSearchArtistId = $resource('https://api.spotify.com/v1/artists/:id/albums?market=SE',{},{
     get: {
 		}
 	});
@@ -126,11 +126,16 @@ queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 		get: {}
 	});
 
-	this.album = $resource('https://api.spotify.com/v1/search?q=:name&type=album&limit=5',{},{
+	this.album = $resource('https://api.spotify.com/v1/search?q=:name&type=album&limit=6',{},{
 		get: {}
 	});
 
-	this.artistAlbum = $resource('https://api.spotify.com/v1/artists/:id/albums',{},{
+	this.artistAlbum = $resource('https://api.spotify.com/v1/artists/:id/albums?market=SE&limit=50&album_type=album',{},{
+    get: {
+		}
+	});
+
+	this.artistAlbumSingles = $resource('https://api.spotify.com/v1/artists/:id/albums?market=SE&limit=50&album_type=single',{},{
     get: {
 		}
 	});

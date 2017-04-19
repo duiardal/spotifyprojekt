@@ -62,12 +62,14 @@ queueKle.factory('Authentication',
       }); //createUserWithEmailAndPassword
     }, //register
 
-    createPlaylist: function(playlistName, playlist) {
+    createPlaylist: function(playlistName, playlist, comments) {
+      console.log(comments);
       var list = $firebaseArray(ref.child($rootScope.currentUser.id).child("playlists"));
       list.$add({
         playlists: playlist,
         PlaylistName: playlistName,
-        Ranking: 0
+        Ranking: 0,
+        comment: comments
       })
       .then(function(ref) {
         var id = ref.key;
@@ -178,8 +180,6 @@ queueKle.factory('Authentication',
         for (obj in reference) {
           if (reference[obj].id == id) {
             $rootScope.selUser = reference[obj];
-            console.log($rootScope.selUser);
-            console.log($rootScope.currentUser);
           }
         }
       })
@@ -189,9 +189,6 @@ queueKle.factory('Authentication',
       var reference = $firebaseArray(ref);
       var thisUser;
       reference.$loaded().then(function(reference) {
-        console.log(reference);
-        console.log(object);
-        console.log(playName);
         for (obj in reference) {
           if (reference[obj].id == object.id) {
             thisUser = reference[obj];
@@ -242,7 +239,6 @@ queueKle.factory('Authentication',
     },
 
     deleteFavorite: function(track) {
-      console.log("hej");
       var list = $firebaseArray(ref.child($rootScope.currentUser.id).child("favorite_songs"));
       list.$loaded().then(function(list){
         var item = list.$getRecord(track);
@@ -262,7 +258,6 @@ queueKle.factory('Authentication',
         for (i in reference) {
           var string = reference[i].username;
           var res = string.toLowerCase();
-          console.log(string);
           if (res.indexOf(substring) !== -1) {
              list.push(reference[i]);
              $rootScope.searchedUser = list;

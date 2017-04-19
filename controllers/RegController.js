@@ -23,7 +23,8 @@ queueKle.controller('RegController', ['$scope','$routeParams','$rootScope', 'Aut
 	$scope.savePlaylist = function(playlistName) {
 		$rootScope.messageSaved = true;
 		var playlist = Spotify.getQueue();
-		Authentication.createPlaylist(playlistName, playlist);
+		var commentList = [];
+		Authentication.createPlaylist(playlistName, playlist, commentList);
 	}
 	//Retrives the playlist
 	$scope.getPlaylist = function() {

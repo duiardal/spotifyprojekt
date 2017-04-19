@@ -193,7 +193,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 			id:id}, function(output) {
 				$scope.ArtistAlbums = output.items;
 				Spotify.ArtistAlbums = output.items;
-				$scope.artist = output.items[0].artists[0].name;
+				//$scope.artist = output.items[0].artists[0].name;
 				
 		});
 	}

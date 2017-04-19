@@ -1,16 +1,22 @@
 var queueKle = angular.module('queueKle', ['firebase', 'ngRoute','ngResource', 'ngCookies']);
 
-queueKle.run(["$rootScope", "$location", function($rootScope, $location) {
-  $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
-    // We can catch the error thrown when the $requireSignIn promise is rejected
-    // and redirect the user back to the home page
-    if (error === "AUTH_REQUIRED") {
-      console.log(error);
-      $location.path("/home");
+queueKle.run(["$rootScope", "$location", function($rootScope, $location,$window) {
+   $rootScope.online = navigator.onLine;
+   console.log($rootScope.online);
+   if ($rootScope.online){
+      $rootScope.$on("$routeChangeError", function(event, next, previous, error) {
+        // We can catch the error thrown when the $requireSignIn promise is rejected
+        // and redirect the user back to the home page
+        if (error === "AUTH_REQUIRED") {
+          console.log(error);
+          $location.path("/home");
+        }
+      });
     }
-  });
+    else {
+      $rootScope.offline=true;
+    }
 }]);
-
 
 queueKle.config(['$routeProvider',
 function($routeProvider) {
@@ -110,7 +116,11 @@ function($routeProvider) {
         return Auth.$requireSignIn();
       }]
     }
-  })
+  }).
+  otherwise('/home', {
+      controller: 'RegController',
+      templateUrl: 'partials/home.html',
+      });
 }]);
 
 

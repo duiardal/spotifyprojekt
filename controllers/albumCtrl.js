@@ -12,7 +12,6 @@ queueKle.controller('albumCtrl', function($scope, Spotify, $routeParams) {
 				$scope.release = output.release_date;
 				$scope.albumImg = output.images[1].url;
 				$scope.albumTracks = output.tracks.items;
-				console.log(output);
 			}
 		);
 	}

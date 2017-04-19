@@ -30,7 +30,7 @@
 					</div>
 					<!--Label-->
 					<div class="row" style="padding-bottom: 1em;">
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div class="row">
 								titel
 							</div>
@@ -53,7 +53,7 @@
 					</div>
 					<!--Tracks-->
 					<div class="row" ng-repeat="song in topTracks.slice(0,5) track by $index">
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div class="row">
 								{{getRowIndex($index)}}{{song.name}}
 								<a id="sortLink" href="" ng-click="player(song.preview_url)">
@@ -96,6 +96,25 @@
 					<div class="row">
 						<div class="col-md-12">
 							<p>{{album.name}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" id="padding">
+				<div class="col-md-12">
+					<h1 id="yo">Singles</h1>
+				</div>
+			</div>
+			<div class="row" id="padding">
+				<div class="col-md-3" ng-repeat="single in albumResultSingles" style="height:10em;">
+					<div class="row">
+						<div class="col-md-12">
+							<a ng-href='#!/albumPage/{{single.id}}'><img ng-src="{{single.images[0].url}}" id="searchArtistImage"/></a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<p>{{single.name}}</p>
 						</div>
 					</div>
 				</div>
