@@ -7,7 +7,27 @@
 			<!--Album Details-->
 			<div class="row" id="padding">
 				<div class="col-md-12">
-					<h2 id="yo"><img ng-src="{{albumImg}}" id="searchArtistImage"/>		{{albumName}}</h2>
+					<div class="row">
+						<div class="col-md-2">
+							<div class="row">
+								<h2 id="yo">
+									<img ng-src="{{albumImg}}" id="searchArtistImage"/>
+								</h2>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<h2 id="yo">
+								{{albumName}}
+							</h2>
+							<p>
+								by:
+								<a id="sortLink" ng-href='#!/artistPage/{{artistId}}' ng-click="getAlbum(artistId)">
+									{{artist}}
+								</a>
+							</p>
+							<p>release date: {{release}}</p>
+						</div>
+					</div>
 				</div>	
 			</div>
 			<!--labels-->
