@@ -109,7 +109,7 @@ queueKle.factory('Spotify',function ($resource,$cookieStore, Authentication) {
 	}
 
 	//Spotify Api-requests
-	this.Artist = $resource('https://api.spotify.com/v1/search?q=:name&type=artist&limit=1',{},{
+	this.Artist = $resource('https://api.spotify.com/v1/search?q=:name&type=artist&limit=6',{},{
     get: {
 		}
 	});
