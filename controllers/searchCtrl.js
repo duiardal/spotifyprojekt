@@ -1,7 +1,10 @@
 queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScope,Spotify,Authentication) {
+	//Initial Values
 	$scope.searchInput=false;
 	Spotify.artistCtrl=false;
 	Spotify.albumCtrl=false;
+
+	//Backbutton changes the states of variables that search is displayed correctly
 	$scope.backButton = function() {
 		$scope.artistResult = Spotify.artistSearch;
 		$scope.albumResult = Spotify.albumSearch;
@@ -16,22 +19,6 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		Spotify.reload=true;
 		Spotify.selUserLoad=true;
 	}
-	//Checks the profile page for header
-	$scope.profilePageLoad = function() {
-		$scope.searchPage = false;
-	}
-	//Checks the profilePlaylists page for header
-	$scope.userPlaylistPageLoad = function() {
-		$scope.searchPage = false;
-		$scope.currentProfilePlaylist=true;
-	}
-
-	$scope.getRowIndex = function(index) {
-		var result = index +1;
-		result = result+". "
-		return result
-	}
-
 	//Checks the album page for header
 	$scope.albumPageLoad = function() {
 		$scope.albumToArtist =true;
@@ -41,6 +28,7 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 	$scope.artistPageLoad = function() {
 		$scope.searchPage = false;
 	}
+
 	//Checks the user page for header
 	$scope.friendPageLoad = function() {
 		if (Spotify.reload == false) {
@@ -99,6 +87,27 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		}
 		
 	}
+
+	//Returns the right index for the songs
+	$scope.getRowIndex = function(index) {
+		var result = index +1;
+		result = result+". "
+		return result
+	}
+
+	//checks the queue if it is empty
+	$scope.checkQueue = function() {
+		var list = Spotify.getQueue();
+		if (list.length > 0) {
+			$scope.queueEmpty=false;
+		}
+		else {
+			$scope.queueEmpty=true;
+		}
+	}
+
+	
+	
 	//returns the searchword
 	$scope.searchWord = function() {
 		var test = Spotify.searchWord;

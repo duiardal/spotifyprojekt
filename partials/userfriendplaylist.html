@@ -28,7 +28,7 @@
 					</div>
 					<!--Labels-->
 					<div class="row" id="searchResult">
-						<div class="col-md-4">
+						<div class="col-md-4">	
 							TITLE 
 						</div>
 						
@@ -56,7 +56,7 @@
 						<div class="col-md-4">
 							<h5>
 								{{track.name}} 
-								<a style="color:white" ng-click="player(track.preview_url)">
+								<a id="sortLink" href="" ng-click="player(track.preview_url)">
 									<span class="glyphicon glyphicon-volume-up">
 									</span>
 								</a>
@@ -64,10 +64,10 @@
 							
 						</div>
 						<div class="col-md-2" ng-controller="searchCtrl">
-							<a style="color:white" ng-href='#!/artistPage/{{track.artists[0].id}}' ng-click="getAlbum(track.artists[0].id)">{{track.artists[0].name}}</a>
+							<a id="sortLink" ng-href='#!/artistPage/{{track.artists[0].id}}' ng-click="getAlbum(track.artists[0].id)">{{track.artists[0].name}}</a>
 						</div>
 						<div class="col-md-2" ng-controller="searchCtrl">
-							<a style="color:white" ng-href='#!/albumPage/{{track.album.id}}'>
+							<a id="sortLink" ng-href='#!/albumPage/{{track.album.id}}'>
 								{{track.album.name}}
 							</a>
 						</div>

@@ -1,4 +1,4 @@
-<div class="row" ng-controller="searchCtrl" style="padding: 0em; margin:0em;">
+<div class="row" ng-controller="searchCtrl" id="queueDiv">
 	<div class="col-md-12">
 		<h2 id="yo">Queue list</h2>
 		<!--Edit Order button-->
@@ -6,18 +6,18 @@
 			<div class="col-md-10">
 			</div>
 			<div class="col-md-2">
-				<button id="transparentButton" type="button" class="btn btn-default btn-md" ng-click="change =! change" style="color:white;">Edit</button>
+				<button id="transparentButton" type="button" class="btn btn-default btn-md" ng-click="change =! change">Edit</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-1" ng-show="change">
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-6">
 				<div class="row">
 					Title
 				</div>
 			</div>
-			<div class="col-md-5">
+			<div class="col-md-4">
 				<div class="row">
 					Artist
 				</div>
@@ -25,6 +25,18 @@
 			<div class="col-md-1" ng-show="change">
 			</div>
 			<hr></hr>
+		</div>
+		{{checkQueue()}}
+		<!--when the queue is empty-->
+		<div class="row" ng-if="queueEmpty==true" ng-controller="searchCtrl">
+			<div class="col-md-3">
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<h3>Queuen är tom,</h3>
+					<h3>Köa låtar med +</h3>
+				</div>
+			</div>
 		</div>
 		<!--Displays The Queue-->
 		<div class="row" ng-repeat="song in getList() track by $index">
@@ -37,13 +49,13 @@
 			<div class="col-md-5">
 				<div class="row">
 					{{getRowIndex($index)}}{{song.name}}
-					<a style="color:white" href="" ng-click="player(song.preview_url)"><span class="glyphicon glyphicon-volume-up"></span></a>
+					<a id="sortLink" href="" ng-click="player(song.preview_url)"><span class="glyphicon glyphicon-volume-up"></span></a>
 				</div>
 				
 			</div>
 			<div class="col-md-5">
 				<div class="row">
-					<a style="color:white" ng-href='#!/artistPage/{{song.artists[0].id}}' ng-click="getAlbum(song.artists[0].id)">
+					<a id="sortLink" ng-href='#!/artistPage/{{song.artists[0].id}}' ng-click="getAlbum(song.artists[0].id)">
 					{{song.artists[0].name}}
 					</a>
 				</div>
@@ -63,14 +75,14 @@
 		<div class="row" ng-show="change" style="padding-bottom: 1em;">
 			<div class="col-md-4">
 				<div class="row">
-					<button  id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="changeOrder();resetCheckboxes(); change =! change" style="color:white;">Change Order</button>
+					<button  id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="changeOrder();resetCheckboxes(); change =! change">Change Order</button>
 				</div>
 			</div>
 			<div class="col-md-4">
 			</div>
 			<div class="col-md-4">
 				<div class="row">
-					<button  id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="resetQueue(); change =! change" style="color:white;">Delete All</button>
+					<button  id="transparentButton" type="button" class="btn btn-default btn-xs" ng-click="resetQueue(); change =! change">Delete All</button>
 				</div>
 			</div>
 		</div>
@@ -82,9 +94,12 @@
 					Total RunTime:
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-1">
+			</div>
+			<div class="col-md-5">
 				<div class="row">
 					{{totalRuntime()}}
+					min
 				</div>
 			</div>
 		</div>
