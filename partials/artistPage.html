@@ -30,42 +30,35 @@
 					</div>
 					<!--Label-->
 					<div class="row" style="padding-bottom: 1em;">
-						<div class="col-md-5">
-							<div class="row">
-								titel
-							</div>
+						<div class="col-md-1">
+								PREVIEW
+						</div>
+						<div class="col-md-4" style="padding-left: 3em;">
+								TITLE
 						</div>
 						<div class="col-md-2">
-							<div class="row">
-								popularity
-							</div>
+								POPULARITY
 						</div>
 						<div class="col-md-1">
-							<div class="row">
-								queue
-							</div>
+								QUEUE
 						</div>
 						<div class="col-md-1">
-							<div class="row">
-								favorite
-							</div>
+								FAVORITE
 						</div>
 					</div>
 					<!--Tracks-->
-					<div class="row" ng-repeat="song in topTracks.slice(0,5) track by $index">
-						<div class="col-md-5">
-							<div class="row">
-								{{getRowIndex($index)}}{{song.name}}
-								<a id="sortLink" href="" ng-click="player(song.preview_url)">
-									<span class="glyphicon glyphicon-volume-up">
+					<div class="row" id="searchResult3" ng-repeat="song in topTracks.slice(0,5) track by $index">
+						<div class="col-md-1">
+								<a href="" ng-click="player(song.preview_url)">
+									<span id="sortLink" class="glyphicon glyphicon-play">
 									</span>
 								</a>
-							</div>
+						</div>
+						<div class="col-md-4" style="padding-left: 3em;">
+								{{getRowIndex($index)}}{{song.name}}
 						</div>
 						<div class="col-md-2">
-							<div class="row">
 								{{song.popularity}}
-							</div>
 						</div>
 						<div class="col-md-1" ng-controller="searchCtrl">
 							<a id="qKnapp" href="" ng-click="queueSong(song)">
@@ -94,8 +87,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
-							<p>{{album.name}}</p>
+						<div class="col-md-12" >
+							<a id="sortLink" ng-href='#!/albumPage/{{album.id}}'>{{album.name}}</a>
 						</div>
 					</div>
 				</div>
@@ -114,7 +107,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<p>{{single.name}}</p>
+							<a ng-href='#!/albumPage/{{single.id}}' id="sortLink">{{single.name}}</a>
 						</div>
 					</div>
 				</div>

@@ -23,8 +23,17 @@ input {
 }
 
 #sortLink:hover {
-	color: rgba(255,255,255,0.15);
-	text-decoration: none;
+	color: rgba(255,255,255,0.15) !important;
+	/*text-decoration: none;*/
+}
+
+#sortLink2 {
+	color: #d48cf8;
+}
+
+#sortLink2:hover {
+	color: rgba(255,255,255,0.15) !important;
+	/*text-decoration: none;*/
 }
 
 /*Search widget*/
@@ -32,33 +41,6 @@ input {
 	color: grey;
 }
 
-.collapsable {
-display: inline-block;
-overflow: hidden;
-height: 0;
-transition: height 1s;
--webkit-transition: height 1s;        
--moz-transition: height 1s;        
--o-transition: height 1s;         
-}
-
-.collapsable.showMe {
-height: 100px;
-}
-
-#collapsable {
-display: inline-block;
-overflow: hidden;
-height: 0%;
-transition: height 1s;
--webkit-transition: height 1s;        
--moz-transition: height 1s;        
--o-transition: height 1s;         
-}
-
-#collapsable.showMe {
-height: 100%;
-}
 
 /*Bakground*/
 #body {
@@ -273,23 +255,55 @@ height: 100%;
 	/*background-color: black;*/
 }
 
+
+#searchResult2 {
+	padding-top: 1em;
+	padding-bottom: 1em;
+	color:white;
+	/*padding-left: 2em;*/
+	padding-right: 4em;
+	/*background-color: black;*/
+}
+
+#searchResult2:hover {
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
+#searchResult3:hover {
+	background-color: rgba(255, 255, 255, 0.15);
+}
+
 #artistResult {
 	display:inline-block;
 	margin-bottom: 2em;
 }
 #searchArtistImage {
+	opacity: 100;
+    filter: alpha(opacity=100);
 	height:6em;
 	/*border-radius: 80%;*/
 	/*padding-left: 1em;*/
 	/*margin-top: 2em;*/
 }
 
+#searchArtistImage:hover {
+	opacity: 0.15;
+	filter: alpha(opacity=15);
+}
+
 #searchArtistImage2 {
+	opacity: 100;
+    filter: alpha(opacity=100);
 	height:6em;
 	width:6em;
 	/*border-radius: 80%;*/
 	/*padding-left: 1em;*/
 	/*margin-top: 2em;*/
+}
+
+#searchArtistImage2:hover {
+	opacity: 0.15;
+	filter: alpha(opacity=15);
 }
 
 #artistBlock {
@@ -333,9 +347,16 @@ height: 100%;
 }
 
 #albumColageBox {
+	opacity: 100;
+    filter: alpha(opacity=100);
 	padding-left: 2em;
 	margin: 0em; 
 	font-size: 1em;
+}
+
+#albumColageBox:hover {
+	opacity: 0.15;
+	filter: alpha(opacity=15);
 }
 
 #albumColage {
@@ -353,4 +374,38 @@ height: 100%;
 	text-align: left;
 }
 
+.dropbtn {
+    /*background-color: #4CAF50;*/
+    color: white;
+    /*padding: 16px;*/
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    color: rgba(255,255,255,0.15);
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a, p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/*.dropdown a:hover {background-color: #f1f1f1}*/
+
+.show {display:block;}
 

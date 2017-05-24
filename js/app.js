@@ -24,14 +24,14 @@ function($routeProvider) {
   when('/home', {
       controller: 'RegController',
       templateUrl: 'partials/home.html',
-      resolve: {
+      /*resolve: {
       // controller will not be loaded until $waitForSignIn resolves
       // Auth refers to our $firebaseAuth wrapper in the factory below
       "currentAuth": ["Auth", function(Auth) {
         // $waitForSignIn returns a promise so the resolve waits for it to complete
         return Auth.$waitForSignIn();
       }]
-    }
+    }*/
     }).
   when('/registerPage', {
       controller: 'RegController',
@@ -40,7 +40,7 @@ function($routeProvider) {
   when('/search', {
       controller: 'searchCtrl',
       templateUrl: 'partials/search.html',
-      resolve: {
+      /*resolve: {
         // controller will not be loaded until $requireSignIn resolves
         // Auth refers to our $firebaseAuth wrapper in the factory below
         "currentAuth": ["Auth", function(Auth) {
@@ -48,12 +48,12 @@ function($routeProvider) {
           // If the promise is rejected, it will throw a $routeChangeError (see above)
           return Auth.$requireSignIn();
         }]
-      }
+      }*/
     }).
   when('/artistPage/:id', {
         templateUrl: 'partials/artistPage.html',
         controller: 'artistCtrl',
-        resolve: {
+        /*resolve: {
           // controller will not be loaded until $requireSignIn resolves
           // Auth refers to our $firebaseAuth wrapper in the factory below
           "currentAuth": ["Auth", function(Auth) {
@@ -61,13 +61,13 @@ function($routeProvider) {
             // If the promise is rejected, it will throw a $routeChangeError (see above)
             return Auth.$requireSignIn();
           }]
-        }
+        }*/
       }).
 
     when('/albumPage/:id', {
       templateUrl: 'partials/albumPage.html',
       controller: 'albumCtrl',
-      resolve: {
+      /*resolve: {
         // controller will not be loaded until $requireSignIn resolves
         // Auth refers to our $firebaseAuth wrapper in the factory below
         "currentAuth": ["Auth", function(Auth) {
@@ -75,12 +75,12 @@ function($routeProvider) {
           // If the promise is rejected, it will throw a $routeChangeError (see above)
           return Auth.$requireSignIn();
         }]
-      }
+      }*/
     }).
     when('/playlistPage/:id', {
     controller: 'RegController',
     templateUrl: 'partials/userfriendplaylist.html',
-    resolve: {
+    /*resolve: {
       // controller will not be loaded until $requireSignIn resolves
       // Auth refers to our $firebaseAuth wrapper in the factory below
       "currentAuth": ["Auth", function(Auth) {
@@ -88,13 +88,13 @@ function($routeProvider) {
         // If the promise is rejected, it will throw a $routeChangeError (see above)
         return Auth.$requireSignIn();
       }]
-    }
+    }*/
   }).
 
   when('/personalPlaylistPage/:id', {
     controller: 'RegController',
     templateUrl: 'partials/personalPlaylistPage.html',
-    resolve: {
+    /*resolve: {
       // controller will not be loaded until $requireSignIn resolves
       // Auth refers to our $firebaseAuth wrapper in the factory below
       "currentAuth": ["Auth", function(Auth) {
@@ -102,12 +102,12 @@ function($routeProvider) {
         // If the promise is rejected, it will throw a $routeChangeError (see above)
         return Auth.$requireSignIn();
       }]
-    }
+    }*/
   }).
   when('/friends/:id', {
     templateUrl: 'partials/userfriendpage.html',
     controller: 'RegController',
-    resolve: {
+    /*resolve: {
       // controller will not be loaded until $requireSignIn resolves
       // Auth refers to our $firebaseAuth wrapper in the factory below
       "currentAuth": ["Auth", function(Auth) {
@@ -115,7 +115,7 @@ function($routeProvider) {
         // If the promise is rejected, it will throw a $routeChangeError (see above)
         return Auth.$requireSignIn();
       }]
-    }
+    }*/
   }).
   otherwise('/home', {
       controller: 'RegController',

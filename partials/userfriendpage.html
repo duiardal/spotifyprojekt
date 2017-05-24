@@ -36,13 +36,44 @@
 					<div class="row" ng-controller="searchCtrl">
 						<div class="col-md-12">	
 							<h3>Favorite Tracks:</h3>
-							<div class="row" id="searchResult" ng-repeat="(keyVal, favSong) in selUser.favorite_songs" ng-controller="RegController">
-								<div class="col-md-4">
-									<h5>{{favSong.favorites.name}}
-									<a href="" id="sortLink" ng-click="player(favSong.favorites.preview_url)">
-										<span class="glyphicon glyphicon-volume-up">
+							<!--TrackLabels-->
+							<div class="row" id="searchResult">
+								
+								<div class="col-md-1">
+									PREVIEW
+								</div>
+								
+								<div class="col-md-3">
+									TITLE
+								</div>
+								
+								<div class="col-md-3">
+									ARTIST 
+								</div>
+								
+								<div class="col-md-3">
+									ALBUM 
+								</div>
+								
+								<div class="col-md-1">
+									QUEUE
+								</div>
+								<div class="col-md-1">
+									REMOVE
+								</div>
+
+								<hr></hr>
+							</div>
+							<div class="row" id="searchResult2" ng-repeat="(keyVal, favSong) in selUser.favorite_songs" ng-controller="RegController">
+
+								<div class="col-md-1">
+									<a href="" ng-click="player(favSong.favorites.preview_url)">
+										<span id="sortLink" class="glyphicon glyphicon-play">
 										</span>
-									</a></h5>	
+									</a>
+								</div>
+								<div class="col-md-3">
+									{{favSong.favorites.name}}
 								</div>
 								<div class="col-md-3" ng-controller="searchCtrl">
 									<a id="sortLink" ng-href='#!/artistPage/{{favSong.favorites.artists[0].id}}' ng-click="getAlbum(favSong.favorites.artists[0].id)">{{favSong.favorites.artists[0].name}}
@@ -54,13 +85,13 @@
 									</a>
 								</div>
 								<div class="col-md-1" ng-controller="searchCtrl">
-									<a id="qKnapp" ng-click="queueSong(favSong.favorites)">
+									<a href="" id="qKnapp" ng-click="queueSong(favSong.favorites)">
 										<span class="{{queueSongs(favSong.favorites.id)}}" id="queque{{favSong.favorites.id}}">
 										</span>
 									</a>
 								</div>
 								<div class="col-md-1" ng-if="User==false">
-									<a id="sortLink">
+									<a href="" id="sortLink">
 										<span ng-controller="searchCtrl" ng-click="favoriteSong(favSong.favorites)" id="{{favSong.favorites.id}}" class="{{favoriteSongs(favSong.favorites.id)}}">
 										</span>
 									</a>

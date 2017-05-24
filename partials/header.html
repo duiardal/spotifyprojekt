@@ -41,7 +41,7 @@
 	<!--Titel-->
 	<div class="col-md-4" id="searchTitle">
 		<a ng-href="#!/search" id="sortLink">
-			<h2>KléQueue</h2>
+			<h2>Music Queue</h2>
 		</a>
 	</div>
 
@@ -50,13 +50,22 @@
 		<div class="row" id="searchBar">
 			<div ng-controller="RegController">
 				<div class="col-md-8">
-					<h4><span id="userIcon" class="glyphicon glyphicon-user"></span> Logged in as: <a id="sortLink" ng-click="userSearch(currentUser.id)" ng-href="#!/friends/{{currentUser.id}}">{{ currentUser.username }}</a></h4>
+					<h5><span id="userIcon" class="glyphicon glyphicon-user"></span> Logged in as: <a id="sortLink2" ng-click="userSearch(currentUser.id)" ng-href="#!/friends/{{currentUser.id}}">{{ currentUser.username }}</a></h5>
 				</div>
-				<div class="col-md-3">
+				<!--<div class="col-md-3">
 					<a href="" ng-click="logout()"><h4 id="userIcon" class="glyphicon glyphicon-log-out"></h4></a>
+				</div>-->
+				<div class="col-md-3">
+					<div class="dropdown">
+						<h4><a href="" ng-click="myFunction()" class="dropbtn">&#9776;</a></h4>
+					  	<div id="myDropdown" class="dropdown-content">
+					  		<a ng-href="#!/search">Search</a>
+						    <a ng-click="userSearch(currentUser.id)" ng-href="#!/friends/{{currentUser.id}}">Profile</a>
+						    <a href="" ng-click="logout()">Log out</a>
+					  	</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-

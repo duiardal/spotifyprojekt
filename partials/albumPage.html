@@ -19,20 +19,23 @@
 							<h2 id="yo">
 								{{albumName}}
 							</h2>
-							<p>
+							<p id="yo">
 								by:
 								<a id="sortLink" ng-href='#!/artistPage/{{artistId}}' ng-click="getAlbum(artistId)">
 									{{artist}}
 								</a>
 							</p>
-							<p>release date: {{release}}</p>
+							<p id="yo">release date: {{release}}</p>
 						</div>
 					</div>
 				</div>	
 			</div>
 			<!--labels-->
 			<div class="row" id="padding2">
-				<div class="col-md-8">
+				<div class="col-md-1">
+					PREVIEW
+				</div>
+				<div class="col-md-7">
 					TITLE
 				</div>
 				<div class="col-md-2">
@@ -49,14 +52,16 @@
 			<!--Tracks-->
 			<div class="row" id="padding2">
 				<ol id="list">
-					<div class="row" ng-repeat="track in albumTracks" ng-controller="searchCtrl">
-						<div class="col-md-8">
+					<div class="row" ng-repeat="track in albumTracks" id="searchResult3" ng-controller="searchCtrl">
+						<div class="col-md-1">
+							<a href="" ng-click="player(track.preview_url)">
+								<span id="sortLink" class="glyphicon glyphicon-play">
+								</span>
+							</a>
+						</div>
+						<div class="col-md-7">
 							<li id="space">
 								{{track.name}}
-								<a id="sortLink" href="" ng-click="player(track.preview_url)">
-									<span class="glyphicon glyphicon-volume-up">
-									</span>
-								</a>
 						</div>
 						<div class="col-md-2">{{getTrackTime(track.duration_ms)}}
 						</div>

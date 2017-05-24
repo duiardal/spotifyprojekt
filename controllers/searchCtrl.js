@@ -305,11 +305,10 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 		var test = Spotify.popSort;
 		$scope.trackResult = Spotify.trackSearch;
 		if (test==true){
-		$scope.trackResult.sort(function(a, b){return b.popularity - a.popularity});
-		Spotify.popSort=false;
-		var symbol = document.getElementById("sort3");
-		symbol.className = "glyphicon glyphicon-triangle-top"
-
+			$scope.trackResult.sort(function(a, b){return b.popularity - a.popularity});
+			Spotify.popSort=false;
+			var symbol = document.getElementById("sort3");
+			symbol.className = "glyphicon glyphicon-triangle-top"
 		}
 		else {
 			$scope.trackResult.sort(function(a, b){return a.popularity - b.popularity});
@@ -334,10 +333,14 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
 	//Fills in favorited songs in Search
 	$scope.favoriteSongs = function(id) {
 		var result = "glyphicon glyphicon-star-empty";
-		var key = $rootScope.currentUser.favorite_songs;
-		for (song in key) {
-			if (key[song].favorites.id == id){
-				result = "glyphicon glyphicon-star";
+		if ($rootScope.currentUser) {
+			var result = "glyphicon glyphicon-star-empty";
+
+			var key = $rootScope.currentUser.favorite_songs;
+			for (song in key) {
+				if (key[song].favorites.id == id){
+					result = "glyphicon glyphicon-star";
+				}
 			}
 		}
 		return result;
@@ -555,4 +558,24 @@ queueKle.controller('searchCtrl', function($scope,$window,$routeParams,$rootScop
     $scope.getUserPlaylist = function() {
     	return Spotify.userPlaylist;
     } 
+
+    $scope.myFunction = function() {
+	    document.getElementById("myDropdown").classList.toggle("show");
+	}
+
+	// Close the dropdown if the user clicks outside of it
+	window.onclick = function(event) {
+	  if (!event.target.matches('.dropbtn')) {
+
+	    var dropdowns = document.getElementsByClassName("dropdown-content");
+	    var i;
+	    for (i = 0; i < dropdowns.length; i++) {
+	      var openDropdown = dropdowns[i];
+	      if (openDropdown.classList.contains('show')) {
+	        openDropdown.classList.remove('show');
+	      }
+	    }
+	  }
+	}
+
 });

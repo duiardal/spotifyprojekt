@@ -28,7 +28,10 @@
 					</div>
 					<!--Labels-->
 					<div class="row" id="searchResult">
-						<div class="col-md-4">	
+						<div class="col-md-1">	
+							PREVIEW 
+						</div>
+						<div class="col-md-3">	
 							TITLE 
 						</div>
 						
@@ -52,16 +55,15 @@
 						<hr></hr>
 					</div>
 					<!--Tracks-->	
-					<div class="row" ng-repeat="track in selectedUser.playlists track by $index" id="searchResult" style="margin:0em;">
-						<div class="col-md-4">
-							<h5>
-								{{track.name}} 
-								<a id="sortLink" href="" ng-click="player(track.preview_url)">
-									<span class="glyphicon glyphicon-volume-up">
-									</span>
-								</a>
-							</h5>
-							
+					<div class="row" ng-repeat="track in selectedUser.playlists track by $index" id="searchResult2" style="margin:0em;">
+						<div class="col-md-1">
+							<a href="" ng-click="player(track.preview_url)">
+								<span id="sortLink" class="glyphicon glyphicon-play">
+								</span>
+							</a>
+						</div>
+						<div class="col-md-3">
+							{{track.name}}
 						</div>
 						<div class="col-md-2" ng-controller="searchCtrl">
 							<a id="sortLink" ng-href='#!/artistPage/{{track.artists[0].id}}' ng-click="getAlbum(track.artists[0].id)">{{track.artists[0].name}}</a>
@@ -80,7 +82,7 @@
 							</a>
 						</div>
 						<div class="col-md-1">
-							<a id="sortLink">
+							<a href="">
 								<span ng-controller="searchCtrl" ng-click="favoriteSong(track)" id="{{track.id}}" class="{{favoriteSongs(track.id)}}"></span>
 							</a>
 						</div>
@@ -111,7 +113,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" ng-repeat="(commentID, yo) in selectedUser.comments" ng-controller="RegController">
+					<div class="row" ng-repeat="(commentID, yo) in selectedUser.comments" ng-controller="RegController" id="searchResult3">
 						<div class="col-md-2">
 						</div>
 						<div class="col-md-3">
